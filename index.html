@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bazar — Sua loja online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        marca: {
+                            50: '#FFF7ED', 100: '#FFEDD5', 200: '#FED7AA',
+                            300: '#FDBA74', 400: '#FB923C', 500: '#F97316',
+                            600: '#EA580C', 700: '#C2410C', 800: '#9A3412',
+                            900: '#7C2D12',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Sora', 'system-ui', 'sans-serif'],
+                        body: ['Outfit', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 1px 3px rgba(124,45,18,0.06), 0 1px 2px rgba(124,45,18,0.04)',
+                        'card-hover': '0 4px 12px rgba(124,45,18,0.1), 0 2px 4px rgba(124,45,18,0.06)',
+                        'nav': '0 -2px 20px rgba(124,45,18,0.06)',
+                        'toast': '0 8px 30px rgba(0,0,0,0.12)',
+                    },
+                    borderRadius: {
+                        'app': '2.5rem',
+                        'card': '1.25rem',
+                        'input': '0.75rem',
+                        'badge': '9999px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+        body { font-family: 'Outfit', system-ui, sans-serif; background: #e5e5e5; margin: 0; }
+
+        /* ── Animações ── */
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeSlideOut {
+            from { opacity: 1; transform: translateY(0); }
+            to   { opacity: 0; transform: translateY(12px); }
+        }
+        @keyframes toastIn  { from { opacity:0; transform:translateY(-16px) scale(0.95); } to { opacity:1; transform:translateY(0) scale(1); } }
+        @keyframes toastOut { from { opacity:1; transform:translateY(0) scale(1); } to { opacity:0; transform:translateY(-16px) scale(0.95); } }
+        @keyframes spin     { to { transform: rotate(360deg); } }
+        @keyframes pulseDot { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+        [data-tela] { display: none; animation: fadeSlideIn 0.28s ease-out both; }
+        [data-tela]:not(.hidden) { display: block; }
+        [data-tela].saindo { animation: fadeSlideOut 0.18s ease-in both; }
+
+        /* ── Utilitários ── */
+        .card {
+            background: #fff; border-radius: 1.25rem;
+            box-shadow: 0 1px 3px rgba(124,45,18,0.06), 0 1px 2px rgba(124,45,18,0.04);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .card:active { transform: scale(0.985); }
+        .badge {
+            display: inline-flex; align-items: center; gap: 0.25rem;
+            padding: 0.2rem 0.6rem; border-radius: 9999px;
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em;
+        }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600;
+            font-family: 'Outfit', system-ui, sans-serif; font-size: 0.9rem;
+            border: none; cursor: pointer; transition: all 0.18s ease; text-decoration: none;
+        }
+        .btn:active { transform: scale(0.96); }
+        .btn-primary {
+            background: #F97316; color: #fff;
+            box-shadow: 0 2px 8px rgba(249,115,22,0.3);
+        }
+        .btn-primary:hover { background: #EA580C; }
+        .btn-dark {
+            background: #7C2D12; color: #fff;
+            box-shadow: 0 2px 8px rgba(124,45,18,0.25);
+        }
+        .btn-dark:hover { background: #9A3412; }
+        .btn-outline {
+            background: transparent; color: #7C2D12;
+            border: 1.5px solid rgba(124,45,18,0.2);
+        }
+        .btn-outline:hover { border-color: #F97316; color: #F97316; }
+        .btn-ghost { background: transparent; color: #7C2D12; }
+        .btn-ghost:hover { background: rgba(124,45,18,0.06); }
+        .btn-sm { padding: 0.45rem 1rem; font-size: 0.8rem; border-radius: 0.5rem; }
+
+        /* ── Nav ativo ── */
+        [data-nav].ativo { color: #F97316; }
+        [data-nav].ativo svg { stroke: #F97316; }
+        [data-nav].ativo .nav-dot { opacity: 1; transform: scaleX(1); }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(124,45,18,0.15); border-radius: 99px; }
+
+        /* ── Foco acessível ── */
+        *:focus-visible { outline: 2px solid #F97316; outline-offset: 2px; border-radius: 4px; }
+
+        /* ── Moldura app desktop ── */
+        @media (min-width: 500px) {
+            body {
+                display: flex; align-items: center; justify-content: center;
+                background: #1a1a1a;
+                background-image:
+                    radial-gradient(circle at 20% 30%, rgba(249,115,22,0.04) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(124,45,18,0.05) 0%, transparent 50%);
+            }
+            .app-frame {
+                width: 390px; height: 844px; border-radius: 2.5rem;
+                border: 3px solid #2d2d2d; overflow: hidden;
+                box-shadow:
+                    0 0 0 1px rgba(255,255,255,0.05),
+                    0 25px 80px rgba(0,0,0,0.5),
+                    0 0 120px rgba(249,115,22,0.04);
+                position: relative;
+            }
+            .app-frame::before {
+                content: ''; position: absolute; top: 0; left: 50%;
+                transform: translateX(-50%); width: 120px; height: 28px;
+                background: #1a1a1a; border-radius: 0 0 18px 18px; z-index: 60;
+            }
+        }
+        @media (max-width: 499px) {
+            .app-frame { width: 100%; height: 100dvh; border-radius: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-frame bg-marca-50 flex flex-col">
+        <!-- ═══ STATUS BAR ═══ -->
+        <div class="flex-none h-12 bg-marca-50 flex items-center justify-between px-7 pt-2 select-none relative z-50">
+            <span id="clock" class="text-xs font-semibold text-marca-900 font-display tracking-wide">09:41</span>
+            <div class="flex items-center gap-1.5">
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="6" width="3" height="6" rx="0.75" fill="#7C2D12" opacity="0.35"/><rect x="4.5" y="4.5" width="3" height="7.5" rx="0.75" fill="#7C2D12" opacity="0.55"/><rect x="9" y="3" width="3" height="9" rx="0.75" fill="#7C2D12" opacity="0.75"/><rect x="13.5" y="0" width="3" height="12" rx="0.75" fill="#7C2D12"/></svg>
+                <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 2.5C9.8 2.5 12.2 3.5 14 5.5L15.5 4C13.4 1.6 10.5 0.2 7.5 0.2S1.6 1.6 0.5 4L2 5.5C3.8 3.5 6.2 2.5 7.5 2.5Z" fill="#7C2D12" opacity="0.35"/><path d="M7.5 5C9.1 5 10.6 5.7 11.7 6.8L13.2 5.3C11.7 3.8 9.7 3 7.5 3S3.3 3.8 1.8 5.3L3.3 6.8C4.4 5.7 5.9 5 7.5 5Z" fill="#7C2D12" opacity="0.6"/><circle cx="7.5" cy="9.5" r="1.5" fill="#7C2D12"/></svg>
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke="#7C2D12" stroke-opacity="0.3"/><rect x="22" y="3.5" width="2" height="5" rx="1" fill="#7C2D12" opacity="0.2"/><rect x="2" y="2" width="17" height="8" rx="1.5" fill="#7C2D12"/></svg>
+            </div>
+        </div>
+
+        <!-- ═══ CONTEÚDO PRINCIPAL ═══ -->
+        <main id="app-main" class="flex-1 overflow-y-auto overflow-x-hidden relative bg-marca-50">
+            <!-- TELAS -->
+        </main>
+
+        <!-- ═══ BARRA DE NAVEGAÇÃO ═══ -->
+        <nav class="flex-none bg-white/95 backdrop-blur-md border-t border-marca-900/5 shadow-nav z-40">
+            <div class="flex items-center justify-around px-1 pt-1 pb-2 max-w-[390px] mx-auto">
+                <button data-nav="pagina-inicial" onclick="mostrarTela('pagina-inicial')" class="ativo flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors duration-200 text-marca-400">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span class="nav-dot w-1 h-1 rounded-full bg-marca-500 opacity-0 scale-x-0 transition-all duration-200"></span>
+                </button>
+                <button data-nav="vitrine-de-produtos" onclick="mostrarTela('vitrine-de-produtos')" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors duration-200 text-marca-400">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    <span class="nav-dot w-1 h-1 rounded-full bg-marca-500 opacity-0 scale-x-0 transition-all duration-200"></span>
+                </button>
+                <button data-nav="detalhes-do-produto" onclick="mostrarTela('detalhes-do-produto')" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors duration-200 text-marca-400">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <span class="nav-dot w-1 h-1 rounded-full bg-marca-500 opacity-0 scale-x-0 transition-all duration-200"></span>
+                </button>
+                <button data-nav="carrinho-de-compras" onclick="mostrarTela('carrinho-de-compras')" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors duration-200 text-marca-400">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    <span class="nav-dot w-1 h-1 rounded-full bg-marca-500 opacity-0 scale-x-0 transition-all duration-200"></span>
+                </button>
+                <button data-nav="finalizar-pedido" onclick="mostrarTela('finalizar-pedido')" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors duration-200 text-marca-400">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    <span class="nav-dot w-1 h-1 rounded-full bg-marca-500 opacity-0 scale-x-0 transition-all duration-200"></span>
+                </button>
+                <button data-nav="confirmacao-e-acompanhamento" onclick="mostrarTela('confirmacao-e-acompanhamento')" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors duration-200 text-marca-400">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span class="nav-dot w-1 h-1 rounded-full bg-marca-500 opacity-0 scale-x-0 transition-all duration-200"></span>
+                </button>
+                <button data-nav="painel-administrativo" onclick="mostrarTela('painel-administrativo')" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors duration-200 text-marca-400">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                    <span class="nav-dot w-1 h-1 rounded-full bg-marca-500 opacity-0 scale-x-0 transition-all duration-200"></span>
+                </button>
+                <button data-nav="gerenciar-produtos" onclick="mostrarTela('gerenciar-produtos')" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors duration-200 text-marca-400">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    <span class="nav-dot w-1 h-1 rounded-full bg-marca-500 opacity-0 scale-x-0 transition-all duration-200"></span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- ═══ TOASTS ═══ -->
+    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 pointer-events-none" style="max-width:370px;width:calc(100% - 32px)"></div>
+
+    <!-- ═══ MODAL GENÉRICO ═══ -->
+    <div id="modal-overlay" class="fixed inset-0 z-[90] hidden items-center justify-center p-4" onclick="fecharModal(event)">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="modal-backdrop"></div>
+        <div id="modal-card" class="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm max-h-[80vh] flex flex-col overflow-hidden" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between p-5 border-b border-marca-900/5">
+                <h3 id="modal-title" class="font-display font-700 text-marca-900 text-lg"></h3>
+                <button onclick="fecharModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-marca-900/5 transition-colors" aria-label="Fechar">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C2D12" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div id="modal-body" class="p-5 overflow-y-auto flex-1"></div>
+        </div>
+    </div>
+
+    <!-- ═══ UTILITÁRIOS + ROTEADOR ═══ -->
+    <script>
+    /* ── Formatação ── */
+    function brl(v) { return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v); }
+    function dataBR(iso) {
+        if (!iso) return '—';
+        var d = new Date(iso+'T00:00:00');
+        return d.toLocaleDateString('pt-BR');
+    }
+
+    /* ── Toasts ── */
+    var toastTimer = null;
+    function toast(mensagem, tipo) {
+        tipo = tipo || 'info';
+        var container = document.getElementById('toast-container');
+        var cores = {
+            ok:   { bg:'bg-emerald-600', icon:'<polyline points="20 6 9 17 4 12"/>' },
+            erro: { bg:'bg-red-600',    icon:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>' },
+            info: { bg:'bg-marca-800',  icon:'<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>' },
+        };
+        var c = cores[tipo] || cores.info;
+        var el = document.createElement('div');
+        el.className = c.bg + ' text-white px-4 py-3 rounded-xl shadow-toast flex items-center gap-3 text-sm font-medium pointer-events-auto';
+        el.style.animation = 'toastIn 0.3s ease-out';
+        el.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'+c.icon+'</svg><span class="flex-1">'+mensagem+'</span>';
+        container.appendChild(el);
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function() {
+            el.style.animation = 'toastOut 0.25s ease-in forwards';
+            el.addEventListener('animationend', function() { el.remove(); });
+        }, 3000);
+    }
+
+    /* ── Modal ── */
+    function abrirModal(html, titulo) {
+        document.getElementById('modal-title').textContent = titulo || '';
+        document.getElementById('modal-body').innerHTML = html;
+        var overlay = document.getElementById('modal-overlay');
+        overlay.classList.remove('hidden');
+        overlay.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        setTimeout(function() { document.getElementById('modal-card').querySelector('button,input,select,a')?.focus(); }, 50);
+    }
+    function fecharModal(e) {
+        if (e && e.target !== e.currentTarget && e.target.id !== 'modal-backdrop') return;
+        var overlay = document.getElementById('modal-overlay');
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') fecharModal(); });
+
+    /* ── Clock ── */
+    function updateClock() {
+        var now = new Date();
+        var h = String(now.getHours()).padStart(2,'0');
+        var m = String(now.getMinutes()).padStart(2,'0');
+        var el = document.getElementById('clock');
+        if (el) el.textContent = h+':'+m;
+    }
+    updateClock(); setInterval(updateClock, 30000);
+
+    /* ── Roteador ── */
+    function mostrarTela(id) {
+        document.querySelectorAll('[data-tela]').forEach(function(s) {
+            if (s.dataset.tela === id) { s.classList.remove('hidden'); }
+            else { s.classList.add('hidden'); }
+        });
+        document.querySelectorAll('[data-nav]').forEach(function(b) {
+            b.classList.toggle('ativo', b.dataset.nav === id);
+        });
+        window.scrollTo({ top: 0 });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        mostrarTela('pagina-inicial');
+    });
+    </script>
+</body>
+</html>
