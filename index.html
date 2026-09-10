@@ -947,6 +947,365 @@
   </script>
 </section>
 
+    <section data-tela="carrinho-de-compras" class="hidden">
+      <div id="carrinho-conteudo" class="flex flex-col h-full">
+        <!-- Cabeçalho da tela -->
+        <div class="px-5 pt-4 pb-3 flex items-center justify-between">
+          <div>
+            <h1 class="font-display text-2xl font-bold text-marca-900">Meu Carrinho</h1>
+            <p id="carrinho-contador" class="text-sm text-marca-900/60 mt-0.5 font-body">3 itens</p>
+          </div>
+          <button onclick="carrinho_de_compras_limpar_tudo()" class="p-2 rounded-full hover:bg-marca-100 transition-colors active:scale-95" title="Limpar carrinho">
+            <svg class="w-5 h-5 text-marca-900/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          </button>
+        </div>
+
+        <!-- Lista de itens -->
+        <div id="carrinho-lista" class="flex-1 overflow-y-auto px-5 pb-40 space-y-3">
+          <!-- Itens serão renderizados aqui -->
+        </div>
+
+        <!-- Estado vazio (escondido por padrão) -->
+        <div id="carrinho-vazio" class="hidden flex-1 flex flex-col items-center justify-center px-8 pb-40 text-center">
+          <div class="w-32 h-32 rounded-full bg-marca-100 flex items-center justify-center mb-5">
+            <svg class="w-16 h-16 text-marca-900/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+          </div>
+          <h2 class="font-display text-xl font-bold text-marca-900 mb-2">Carrinho vazio</h2>
+          <p class="text-marca-900/60 font-body text-sm mb-6 leading-relaxed">Você ainda não adicionou nenhum produto. Explore nossa vitrine e encontre peças incríveis!</p>
+          <button onclick="mostrarTela('vitrine-de-produtos')" class="btn bg-marca-800 text-white font-display font-semibold px-8 py-3 rounded-2xl active:scale-95 transition-transform shadow-lg shadow-marca-800/20">
+            Voltar às compras
+          </button>
+        </div>
+      </div>
+
+      <!-- Rodapé fixo com resumo -->
+      <div id="carrinho-rodape" class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-marca-900/5 z-40">
+        <div class="max-w-[430px] mx-auto px-5 pt-3 pb-5">
+          <!-- Campo de cupom -->
+          <div class="flex gap-2 mb-3">
+            <div class="flex-1 relative">
+              <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-marca-900/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+              <input id="input-cupom" type="text" placeholder="Cupom de desconto" class="w-full pl-9 pr-4 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm font-body text-marca-900 placeholder:text-marca-900/30 focus:outline-none focus:ring-2 focus:ring-marca-300 focus:border-transparent transition-all" onkeydown="if(event.key==='Enter')carrinho_de_compras_aplicar_cupom()">
+            </div>
+            <button onclick="carrinho_de_compras_aplicar_cupom()" class="bg-marca-100 hover:bg-marca-200 text-marca-800 font-display font-semibold text-sm px-4 rounded-xl transition-colors active:scale-95">
+              Aplicar
+            </button>
+          </div>
+          <div id="cupom-msg" class="text-xs font-body mb-2 hidden"></div>
+
+          <!-- Indicador de frete -->
+          <div class="flex items-center gap-2 mb-3 px-3 py-2 bg-marca-50 rounded-xl">
+            <svg class="w-4 h-4 text-marca-800 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span class="text-xs font-body text-marca-900/70">Frete estimado para <strong class="text-marca-800">São Paulo - SP</strong></span>
+            <span id="frete-valor" class="text-xs font-display font-bold text-marca-800 ml-auto">R$ 19,90</span>
+          </div>
+
+          <!-- Resumo de valores -->
+          <div class="space-y-1.5 mb-4">
+            <div class="flex justify-between text-sm font-body">
+              <span class="text-marca-900/60">Subtotal</span>
+              <span id="resumo-subtotal" class="text-marca-900 font-medium">R$ 0,00</span>
+            </div>
+            <div id="resumo-desconto-pix" class="flex justify-between text-sm font-body">
+              <span class="text-green-700 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                Desconto Pix (5%)
+              </span>
+              <span class="text-green-700 font-medium">- R$ 0,00</span>
+            </div>
+            <div class="flex justify-between text-sm font-body">
+              <span class="text-marca-900/60">Frete</span>
+              <span id="resumo-frete" class="text-marca-900 font-medium">R$ 19,90</span>
+            </div>
+            <div id="resumo-cupom-row" class="flex justify-between text-sm font-body hidden">
+              <span class="text-purple-700">Cupom de desconto</span>
+              <span id="resumo-cupom" class="text-purple-700 font-medium">- R$ 0,00</span>
+            </div>
+            <div class="border-t border-marca-900/10 pt-2 mt-2">
+              <div class="flex justify-between items-baseline">
+                <span class="font-display font-bold text-marca-900 text-base">Total</span>
+                <span id="resumo-total" class="font-display font-extrabold text-xl text-marca-900">R$ 0,00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botão finalizar compra -->
+          <button onclick="carrinho_de_compras_finalizar()" id="btn-finalizar" class="w-full bg-marca-800 hover:bg-marca-900 text-white font-display font-bold text-base py-4 rounded-2xl transition-all active:scale-[0.97] shadow-lg shadow-marca-800/20 flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal de confirmação de remoção -->
+      <div id="modal-remover-overlay" class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center">
+        <div class="bg-white rounded-t-3xl sm:rounded-3xl p-6 w-full max-w-[400px] mx-auto shadow-2xl animate-[slideUp_0.3s_ease-out]">
+          <div class="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center mb-4 mx-auto">
+            <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg text-marca-900 text-center mb-2">Remover item?</h3>
+          <p id="modal-remover-texto" class="text-sm text-marca-900/60 font-body text-center mb-6">Este item será removido do seu carrinho.</p>
+          <div class="flex gap-3">
+            <button onclick="fecharModal();carrinho_de_compras_cancelar_remocao()" class="flex-1 py-3 rounded-xl border border-marca-900/10 font-display font-semibold text-sm text-marca-900 hover:bg-marca-50 transition-colors active:scale-95">Cancelar</button>
+            <button onclick="fecharModal();carrinho_de_compras_confirmar_remocao()" class="flex-1 py-3 rounded-xl bg-red-500 hover:bg-red-600 font-display font-semibold text-sm text-white transition-colors active:scale-95">Remover</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function() {
+          var itens = [
+            { id: 1, nome: 'Vaso Decorativo Cerâmica', variacao: 'Terracota · 28cm', preco: 89.90, qtd: 1, corMini: 'from-orange-200 to-orange-400', iniciais: 'VC', idRemover: null },
+            { id: 2, nome: 'Kit Almofadas Linho Cru', variacao: '2 unidades · 45x45cm', preco: 149.90, qtd: 2, corMini: 'from-amber-100 to-amber-200', iniciais: 'AL', idRemover: null },
+            { id: 3, nome: 'Luminária Mesa Artesanal', variacao: 'Madeira · LED quente', preco: 219.00, qtd: 1, corMini: 'from-yellow-200 to-yellow-400', iniciais: 'LM', idRemover: null },
+            { id: 4, nome: 'Quadro Decorativo Abstrato', variacao: '40x50cm · Com moldura', preco: 179.90, qtd: 1, corMini: 'from-stone-300 to-stone-500', iniciais: 'QA', idRemover: null },
+            { id: 5, nome: 'Difusor Aromático Bambu', variacao: 'Lavanda · 250ml', preco: 64.90, qtd: 1, corMini: 'from-green-200 to-green-300', iniciais: 'DA', idRemover: null },
+            { id: 6, nome: 'Porta-retratos Ripado', variacao: 'Natural · 10x15cm', preco: 49.90, qtd: 1, corMini: 'from-orange-100 to-orange-300', iniciais: 'PR', idRemover: null }
+          ];
+
+          var cupomAplicado = null;
+          var descontoCupom = 0;
+          var frete = 19.90;
+          var itemRemoverTemp = null;
+
+          window.carrinho_de_compras = {
+            itens: itens,
+            cupomAplicado: cupomAplicado,
+            descontoCupom: descontoCupom,
+            frete: frete,
+            itemRemoverTemp: itemRemoverTemp
+          };
+
+          function renderizarLista() {
+            var lista = document.getElementById('carrinho-lista');
+            var vazio = document.getElementById('carrinho-vazio');
+            var rodape = document.getElementById('carrinho-rodape');
+            var contador = document.getElementById('carrinho-contador');
+
+            if (itens.length === 0) {
+              lista.classList.add('hidden');
+              vazio.classList.remove('hidden');
+              rodape.classList.add('hidden');
+              contador.textContent = '0 itens';
+              return;
+            }
+
+            lista.classList.remove('hidden');
+            vazio.classList.add('hidden');
+            rodape.classList.remove('hidden');
+
+            var totalItens = itens.reduce(function(s, i) { return s + i.qtd; }, 0);
+            contador.textContent = totalItens + ' ' + (totalItens === 1 ? 'item' : 'itens');
+
+            var html = '';
+            itens.forEach(function(item) {
+              var subtotal = item.preco * item.qtd;
+              html += '<div class="bg-white rounded-2xl p-3 shadow-sm border border-marca-900/5 flex gap-3 items-center transition-all duration-200 hover:shadow-md" data-item-id="' + item.id + '">';
+
+              // Miniatura com gradiente
+              html += '<div class="w-20 h-20 rounded-xl bg-gradient-to-br ' + item.corMini + ' flex items-center justify-center flex-shrink-0 shadow-inner">';
+              html += '<span class="font-display font-bold text-white/80 text-lg">' + item.iniciais + '</span>';
+              html += '</div>';
+
+              // Info do produto
+              html += '<div class="flex-1 min-w-0">';
+              html += '<h3 class="font-display font-semibold text-sm text-marca-900 leading-tight truncate">' + item.nome + '</h3>';
+              html += '<p class="text-xs text-marca-900/50 font-body mt-0.5">' + item.variacao + '</p>';
+              html += '<p class="font-display font-bold text-sm text-marca-800 mt-1">R$ ' + item.preco.toFixed(2).replace('.', ',') + '</p>';
+
+              // Controles de quantidade e remover
+              html += '<div class="flex items-center justify-between mt-2">';
+
+              // Seletor de quantidade
+              html += '<div class="flex items-center gap-0 bg-marca-50 rounded-lg overflow-hidden border border-marca-200">';
+              html += '<button onclick="carrinho_de_compras_alterar_qtd(' + item.id + ', -1)" class="w-7 h-7 flex items-center justify-center text-marca-800 hover:bg-marca-200 transition-colors active:scale-90 text-sm font-bold">−</button>';
+              html += '<span class="w-8 h-7 flex items-center justify-center text-marca-900 font-display font-bold text-xs bg-white">' + item.qtd + '</span>';
+              html += '<button onclick="carrinho_de_compras_alterar_qtd(' + item.id + ', 1)" class="w-7 h-7 flex items-center justify-center text-marca-800 hover:bg-marca-200 transition-colors active:scale-90 text-sm font-bold">+</button>';
+              html += '</div>';
+
+              // Preço subtotal e remover
+              html += '<div class="flex items-center gap-2">';
+              html += '<span class="font-display font-bold text-xs text-marca-900">R$ ' + subtotal.toFixed(2).replace('.', ',') + '</span>';
+              html += '<button onclick="carrinho_de_compras_solicitar_remocao(' + item.id + ')" class="p-1.5 rounded-lg hover:bg-red-50 transition-colors active:scale-90 group">';
+              html += '<svg class="w-4 h-4 text-marca-900/30 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>';
+              html += '</button>';
+              html += '</div>';
+
+              html += '</div>';
+              html += '</div>';
+              html += '</div>';
+            });
+
+            lista.innerHTML = html;
+            atualizarTotais();
+          }
+
+          function atualizarTotais() {
+            var subtotal = itens.reduce(function(s, i) { return s + (i.preco * i.qtd); }, 0);
+            var descontoPix = subtotal * 0.05;
+            var totalCupom = 0;
+            if (cupomAplicado === 'BLUE15') {
+              totalCupom = subtotal * 0.15;
+            } else if (cupomAplicado === 'BOASVINDAS') {
+              totalCupom = 20.00;
+            }
+            var total = subtotal - descontoPix - totalCupom + frete;
+            if (total < 0) total = 0;
+
+            document.getElementById('resumo-subtotal').textContent = 'R$ ' + subtotal.toFixed(2).replace('.', ',');
+            document.getElementById('resumo-frete').textContent = 'R$ ' + frete.toFixed(2).replace('.', ',');
+            document.getElementById('resumo-total').textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
+
+            var cupomRow = document.getElementById('resumo-cupom-row');
+            if (cupomAplicado && totalCupom > 0) {
+              cupomRow.classList.remove('hidden');
+              document.getElementById('resumo-cupom').textContent = '- R$ ' + totalCupom.toFixed(2).replace('.', ',');
+            } else {
+              cupomRow.classList.add('hidden');
+            }
+          }
+
+          window.carrinho_de_compras_alterar_qtd = function(id, delta) {
+            var item = itens.find(function(i) { return i.id === id; });
+            if (!item) return;
+            item.qtd = Math.max(1, item.qtd + delta);
+            renderizarLista();
+          };
+
+          window.carrinho_de_compras_solicitar_remocao = function(id) {
+            var item = itens.find(function(i) { return i.id === id; });
+            if (!item) return;
+            itemRemoverTemp = id;
+            document.getElementById('modal-remover-overlay').classList.remove('hidden');
+            document.getElementById('modal-remover-texto').textContent = 'Remover "' + item.nome + '" do carrinho?';
+            abrirModal('', 'Remover item');
+          };
+
+          window.carrinho_de_compras_cancelar_remocao = function() {
+            itemRemoverTemp = null;
+          };
+
+          window.carrinho_de_compras_confirmar_remocao = function() {
+            if (itemRemoverTemp === null) return;
+            itens = itens.filter(function(i) { return i.id !== itemRemoverTemp; });
+            carrinho_de_compras.itens = itens;
+            itemRemoverTemp = null;
+            renderizarLista();
+            toast('Item removido do carrinho', 'info');
+          };
+
+          window.carrinho_de_compras_aplicar_cupom = function() {
+            var input = document.getElementById('input-cupom');
+            var msg = document.getElementById('cupom-msg');
+            var codigo = input.value.trim().toUpperCase();
+
+            if (!codigo) {
+              msg.textContent = 'Digite um código de cupom';
+              msg.className = 'text-xs font-body mb-2 text-red-600';
+              msg.classList.remove('hidden');
+              return;
+            }
+
+            if (codigo === 'BLUE15') {
+              cupomAplicado = 'BLUE15';
+              descontoCupom = 15;
+              msg.textContent = 'Cupom BLUE15 aplicado! 15% de desconto.';
+              msg.className = 'text-xs font-body mb-2 text-green-700';
+              msg.classList.remove('hidden');
+              input.disabled = true;
+              input.classList.add('bg-green-50', 'border-green-300');
+              toast('Cupom aplicado com sucesso!', 'ok');
+            } else if (codigo === 'BOASVINDAS') {
+              cupomAplicado = 'BOASVINDAS';
+              descontoCupom = 20;
+              msg.textContent = 'Cupom BOASVINDAS aplicado! R$ 20,00 de desconto.';
+              msg.className = 'text-xs font-body mb-2 text-green-700';
+              msg.classList.remove('hidden');
+              input.disabled = true;
+              input.classList.add('bg-green-50', 'border-green-300');
+              toast('Cupom aplicado com sucesso!', 'ok');
+            } else {
+              msg.textContent = 'Cupom inválido. Tente BLUE15 ou BOASVINDAS.';
+              msg.className = 'text-xs font-body mb-2 text-red-600';
+              msg.classList.remove('hidden');
+              toast('Cupom inválido', 'erro');
+            }
+
+            atualizarTotais();
+          };
+
+          window.carrinho_de_compras_limpar_tudo = function() {
+            if (itens.length === 0) return;
+            abrirModal('<p class="text-sm text-marca-900/70 font-body text-center">Todos os itens do carrinho serão removidos. Esta ação não pode ser desfeita.</p>', 'Limpar carrinho');
+            var overlay = document.getElementById('modal-remover-overlay');
+            // Reutilizar o modal de confirmação com lógica customizada
+            var btns = overlay.querySelectorAll('button');
+            btns[0].onclick = function() { fecharModal(); };
+            btns[1].onclick = function() {
+              fecharModal();
+              itens = [];
+              carrinho_de_compras.itens = itens;
+              renderizarLista();
+              toast('Carrinho limpo', 'info');
+              // Resetar handlers
+              setTimeout(function() {
+                var overlay2 = document.getElementById('modal-remover-overlay');
+                var btns2 = overlay2.querySelectorAll('button');
+                btns2[0].onclick = function() { fecharModal(); carrinho_de_compras_cancelar_remocao(); };
+                btns2[1].onclick = function() { fecharModal(); carrinho_de_compras_confirmar_remocao(); };
+              }, 100);
+            };
+          };
+
+          window.carrinho_de_compras_finalizar = function() {
+            if (itens.length === 0) {
+              toast('Seu carrinho está vazio', 'erro');
+              return;
+            }
+            var subtotal = itens.reduce(function(s, i) { return s + (i.preco * i.qtd); }, 0);
+            var descontoPix = subtotal * 0.05;
+            var totalCupom = 0;
+            if (cupomAplicado === 'BLUE15') {
+              totalCupom = subtotal * 0.15;
+            } else if (cupomAplicado === 'BOASVINDAS') {
+              totalCupom = 20.00;
+            }
+            var total = subtotal - descontoPix - totalCupom + frete;
+            if (total < 0) total = 0;
+
+            var btn = document.getElementById('btn-finalizar');
+            btn.innerHTML = '<svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg> Processando...';
+            btn.disabled = true;
+            btn.classList.add('opacity-70');
+
+            setTimeout(function() {
+              btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Finalizar Compra';
+              btn.disabled = false;
+              btn.classList.remove('opacity-70');
+              mostrarTela('finalizar-pedido');
+            }, 1500);
+          };
+
+          // Inicializar
+          renderizarLista();
+
+          // Animação de entrada para os itens
+          setTimeout(function() {
+            var cards = document.querySelectorAll('#carrinho-lista > div');
+            cards.forEach(function(card, index) {
+              card.style.opacity = '0';
+              card.style.transform = 'translateY(20px)';
+              card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+              setTimeout(function() {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              }, index * 80);
+            });
+          }, 50);
+        })();
+      </script>
+    </section>
+
     <!-- TELAS -->
         </main>
 
