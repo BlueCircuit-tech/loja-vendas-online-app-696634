@@ -2102,6 +2102,267 @@
   </script>
 </section>
 
+    <section data-tela="painel-administrativo" class="hidden">
+      <div class="fade-in space-y-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="font-display text-2xl font-bold text-marca-900">Painel Administrativo</h1>
+            <p class="text-sm text-marca-700/60 mt-0.5">Visão geral do seu negócio</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <select id="painel-periodo" class="text-xs bg-white border border-marca-900/10 rounded-lg px-3 py-2 text-marca-900 font-medium focus:outline-none focus:ring-2 focus:ring-marca-DEFAULT/30" onchange="painel_administrativo_alterarPeriodo(this.value)">
+              <option value="7">Últimos 7 dias</option>
+              <option value="15">Últimos 15 dias</option>
+              <option value="30" selected>Últimos 30 dias</option>
+            </select>
+            <button onclick="painel_administrativo_exportar()" class="p-2 bg-white border border-marca-900/10 rounded-lg text-marca-700 hover:bg-marca-50 transition-colors" title="Exportar relatório">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="card p-4 bg-gradient-to-br from-marca-DEFAULT to-marca-600 text-white rounded-2xl cursor-pointer active:scale-[0.97] transition-transform" onclick="mostrarTela('finalizar-pedido')">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium opacity-80">Faturamento</span>
+              <svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <p class="text-xl font-bold">R$ 48.320</p>
+            <span class="text-xs opacity-80 mt-1 inline-flex items-center gap-0.5">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"/></svg>
+              +12,5% vs mês anterior
+            </span>
+          </div>
+          <div class="card p-4 bg-white border border-marca-900/8 rounded-2xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-marca-700/60">Total de Pedidos</span>
+              <svg class="w-5 h-5 text-marca-DEFAULT" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+            </div>
+            <p class="text-xl font-bold text-marca-900">127</p>
+            <span class="text-xs text-green-600 mt-1 inline-flex items-center gap-0.5 font-medium">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"/></svg>
+              +8,3% vs mês anterior
+            </span>
+          </div>
+          <div class="card p-4 bg-white border border-marca-900/8 rounded-2xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-marca-700/60">Ticket Médio</span>
+              <svg class="w-5 h-5 text-marca-DEFAULT" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+            </div>
+            <p class="text-xl font-bold text-marca-900">R$ 380,80</p>
+            <span class="text-xs text-green-600 mt-1 inline-flex items-center gap-0.5 font-medium">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"/></svg>
+              +3,2% vs mês anterior
+            </span>
+          </div>
+          <div class="card p-4 bg-white border border-marca-900/8 rounded-2xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-marca-700/60">Clientes Ativos</span>
+              <svg class="w-5 h-5 text-marca-DEFAULT" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-3.188-3.625 4.125 4.125 0 00-5.712 0 4.125 4.125 0 00-3.188 3.625 9.337 9.337 0 00-4.121-.952 9.38 9.38 0 00-2.625.372m9.072 0A48.003 48.003 0 0112 12a48.003 48.003 0 018.571 7.128M15 19.128v.003M15 19.128A48.003 48.003 0 0112 12a48.003 48.003 0 01-8.571 7.128M15 19.128v.003M12 12a48.003 48.003 0 018.571 7.128M12 12A48.003 48.003 0 003.429 19.128M12 12a48.003 48.003 0 01-8.571-7.128M12 12A48.003 48.003 0 0112 12m0 0V9.75m0 2.25v.003m0-2.25a48.003 48.003 0 00-8.571-7.128M12 12a48.003 48.003 0 018.571 7.128"/></svg>
+            </div>
+            <p class="text-xl font-bold text-marca-900">84</p>
+            <span class="text-xs text-red-500 mt-1 inline-flex items-center gap-0.5 font-medium">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
+              -2,4% vs mês anterior
+            </span>
+          </div>
+        </div>
+
+        <div class="card p-5 bg-white border border-marca-900/8 rounded-2xl">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="font-display font-semibold text-marca-900">Vendas dos últimos 7 dias</h2>
+              <p class="text-xs text-marca-700/50 mt-0.5">Evolução diária de faturamento</p>
+            </div>
+            <div class="flex gap-3 text-xs">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-marca-DEFAULT"></span>Faturamento</span>
+            </div>
+          </div>
+          <svg id="painel-grafico" viewBox="0 0 340 160" class="w-full h-40">
+            <line x1="35" y1="10" x2="35" y2="135" stroke="#E7E5E4" stroke-width="1"/>
+            <line x1="35" y1="135" x2="335" y2="135" stroke="#E7E5E4" stroke-width="1"/>
+            <line x1="35" y1="97" x2="335" y2="97" stroke="#F5F5F4" stroke-width="0.5" stroke-dasharray="3,3"/>
+            <line x1="35" y1="59" x2="335" y2="59" stroke="#F5F5F4" stroke-width="0.5" stroke-dasharray="3,3"/>
+            <text x="32" y="100" text-anchor="end" class="text-[9px] fill-marca-700/40">2k</text>
+            <text x="32" y="62" text-anchor="end" class="text-[9px] fill-marca-700/40">4k</text>
+            <text x="32" y="24" text-anchor="end" class="text-[9px] fill-marca-700/40">6k</text>
+            <rect x="46" y="67" width="26" height="68" rx="3" fill="#F97316" class="transition-all duration-300"/>
+            <rect x="100" y="80" width="26" height="55" rx="3" fill="#F97316" class="transition-all duration-300"/>
+            <rect x="154" y="45" width="26" height="90" rx="3" fill="#F97316" class="transition-all duration-300"/>
+            <rect x="208" y="55" width="26" height="80" rx="3" fill="#F97316" class="transition-all duration-300"/>
+            <rect x="262" y="35" width="26" height="100" rx="3" fill="#F97316" class="transition-all duration-300"/>
+            <rect x="316" y="25" width="26" height="110" rx="3" fill="#F97316" opacity="0.3" class="transition-all duration-300"/>
+            <text x="59" y="60" text-anchor="middle" class="text-[9px] font-medium fill-marca-900">3.8k</text>
+            <text x="113" y="73" text-anchor="middle" class="text-[9px] font-medium fill-marca-900">3.2k</text>
+            <text x="167" y="38" text-anchor="middle" class="text-[9px] font-medium fill-marca-900">5.1k</text>
+            <text x="221" y="48" text-anchor="middle" class="text-[9px] font-medium fill-marca-900">4.5k</text>
+            <text x="275" y="28" text-anchor="middle" class="text-[9px] font-medium fill-marca-900">5.8k</text>
+            <text x="329" y="18" text-anchor="middle" class="text-[9px] font-medium fill-marca-900/40">6.2k</text>
+            <text x="59" y="148" text-anchor="middle" class="text-[9px] fill-marca-700/50">Seg</text>
+            <text x="113" y="148" text-anchor="middle" class="text-[9px] fill-marca-700/50">Ter</text>
+            <text x="167" y="148" text-anchor="middle" class="text-[9px] fill-marca-700/50">Qua</text>
+            <text x="221" y="148" text-anchor="middle" class="text-[9px] fill-marca-700/50">Qui</text>
+            <text x="275" y="148" text-anchor="middle" class="text-[9px] fill-marca-700/50">Sex</text>
+            <text x="329" y="148" text-anchor="middle" class="text-[9px] fill-marca-700/50">Sáb</text>
+          </svg>
+        </div>
+
+        <div class="card bg-white border border-marca-900/8 rounded-2xl overflow-hidden">
+          <div class="p-4 pb-3 flex items-center justify-between">
+            <div>
+              <h2 class="font-display font-semibold text-marca-900">Pedidos Recentes</h2>
+              <p class="text-xs text-marca-700/50 mt-0.5">Últimos pedidos recebidos</p>
+            </div>
+            <button onclick="mostrarTela('gerenciar-produtos')" class="text-xs font-medium text-marca-DEFAULT hover:text-marca-600 transition-colors">Ver todos</button>
+          </div>
+          <div class="relative">
+            <div class="px-4 pb-3">
+              <div class="relative">
+                <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-marca-700/40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+                <input id="painel-busca-pedidos" type="text" placeholder="Buscar por cliente ou pedido..." oninput="painel_administrativo_buscarPedidos(this.value)" class="w-full pl-9 pr-4 py-2.5 bg-marca-50/50 border border-marca-900/8 rounded-xl text-sm text-marca-900 placeholder-marca-700/40 focus:outline-none focus:ring-2 focus:ring-marca-DEFAULT/30 transition-all"/>
+              </div>
+            </div>
+            <div id="painel-lista-pedidos" class="divide-y divide-marca-900/5"></div>
+            <div id="painel-vazio" class="hidden p-8 text-center">
+              <svg class="w-12 h-12 mx-auto text-marca-700/20 mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+              <p class="text-sm text-marca-700/50">Nenhum pedido encontrado</p>
+              <p class="text-xs text-marca-700/35 mt-1">Tente outro termo de busca</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-white border border-marca-900/8 rounded-2xl overflow-hidden">
+          <div class="p-4 pb-3">
+            <h2 class="font-display font-semibold text-marca-900">Produtos Mais Vendidos</h2>
+            <p class="text-xs text-marca-700/50 mt-0.5">Top 5 do mês atual</p>
+          </div>
+          <div id="painel-lista-produtos" class="divide-y divide-marca-900/5"></div>
+        </div>
+      </div>
+
+      <script>
+      (function() {
+        var pedidos = [
+          { id: '#2847', cliente: 'Ana Beatriz Souza', avatar: 'AS', corAvatar: 'bg-amber-500', valor: 459.90, status: 'pago', data: '2026-01-15', itens: 3, pagamento: 'Cartão de Crédito' },
+          { id: '#2846', cliente: 'Carlos Eduardo Lima', avatar: 'CL', corAvatar: 'bg-blue-500', valor: 189.50, status: 'pendente', data: '2026-01-15', itens: 1, pagamento: 'Pix' },
+          { id: '#2845', cliente: 'Fernanda Oliveira', avatar: 'FO', corAvatar: 'bg-rose-500', valor: 720.00, status: 'pago', data: '2026-01-14', itens: 5, pagamento: 'Cartão de Crédito' },
+          { id: '#2844', cliente: 'João Pedro Mendes', avatar: 'JM', corAvatar: 'bg-emerald-500', valor: 320.00, status: 'pago', data: '2026-01-14', itens: 2, pagamento: 'Pix' },
+          { id: '#2843', cliente: 'Mariana Costa', avatar: 'MC', corAvatar: 'bg-purple-500', valor: 950.00, status: 'pendente', data: '2026-01-14', itens: 4, pagamento: 'Boleto' },
+          { id: '#2842', cliente: 'Ricardo Alves', avatar: 'RA', corAvatar: 'bg-teal-500', valor: 175.90, status: 'cancelado', data: '2026-01-13', itens: 1, pagamento: 'Cartão de Débito' },
+          { id: '#2841', cliente: 'Patrícia Nascimento', avatar: 'PN', corAvatar: 'bg-orange-500', valor: 640.00, status: 'pago', data: '2026-01-13', itens: 3, pagamento: 'Pix' },
+          { id: '#2840', cliente: 'Lucas Barbosa', avatar: 'LB', corAvatar: 'bg-cyan-500', valor: 210.00, status: 'pago', data: '2026-01-12', itens: 2, pagamento: 'Cartão de Crédito' },
+        ];
+
+        var topProdutos = [
+          { nome: 'Fone Bluetooth Pro', sku: 'FON-001', vendas: 89, receita: 17801.10, imgGrad: 'from-marca-500 to-orange-400' },
+          { nome: 'Carregador Turbo 65W', sku: 'CAR-023', vendas: 72, receita: 7200.00, imgGrad: 'from-orange-400 to-amber-400' },
+          { nome: 'Capa Premium iPhone 16', sku: 'CPI-007', vendas: 64, receita: 9600.00, imgGrad: 'from-amber-500 to-yellow-400' },
+          { nome: 'Cabo USB-C 2m', sku: 'CAB-015', vendas: 58, receita: 1740.00, imgGrad: 'from-marca-400 to-orange-300' },
+          { nome: 'Suporte Veicular MagSafe', sku: 'SUV-002', vendas: 45, receita: 4500.00, imgGrad: 'from-orange-500 to-red-400' },
+        ];
+
+        window.painel_administrativo_buscarPedidos = function(termo) {
+          var t = termo.toLowerCase().trim();
+          var itens = document.querySelectorAll('#painel-lista-pedidos > div');
+          var vazio = document.getElementById('painel-vazio');
+          var visivel = 0;
+          itens.forEach(function(el) {
+            var cli = el.dataset.cliente || '';
+            var id = el.dataset.id || '';
+            if (!t || cli.toLowerCase().indexOf(t) !== -1 || id.toLowerCase().indexOf(t) !== -1) {
+              el.classList.remove('hidden');
+              visivel++;
+            } else {
+              el.classList.add('hidden');
+            }
+          });
+          if (visivel === 0) { vazio.classList.remove('hidden'); } else { vazio.classList.add('hidden'); }
+        };
+
+        window.painel_administrativo_verDetalhe = function(pedido) {
+          var statusCores = { pago: 'bg-green-100 text-green-700', pendente: 'bg-amber-100 text-amber-700', cancelado: 'bg-gray-100 text-gray-500' };
+          var statusLabel = { pago: 'Pago', pendente: 'Pendente', cancelado: 'Cancelado' };
+          var html = '<div class="space-y-4">' +
+            '<div class="flex items-center gap-3 pb-4 border-b border-marca-900/8">' +
+              '<div class="w-10 h-10 rounded-full ' + pedido.corAvatar + ' flex items-center justify-center text-white font-bold text-sm flex-shrink-0">' + pedido.avatar + '</div>' +
+              '<div><p class="font-semibold text-marca-900 text-sm">' + pedido.cliente + '</p><p class="text-xs text-marca-700/50">' + pedido.id + '</p></div>' +
+              '<span class="ml-auto badge ' + statusCores[pedido.status] + ' text-xs px-2 py-0.5 rounded-full font-medium">' + statusLabel[pedido.status] + '</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-2 gap-3">' +
+              '<div class="bg-marca-50/50 rounded-xl p-3"><p class="text-[10px] text-marca-700/50 uppercase tracking-wide">Valor Total</p><p class="font-bold text-marca-900 mt-1">R$ ' + pedido.valor.toFixed(2).replace('.', ',') + '</p></div>' +
+              '<div class="bg-marca-50/50 rounded-xl p-3"><p class="text-[10px] text-marca-700/50 uppercase tracking-wide">Itens</p><p class="font-bold text-marca-900 mt-1">' + pedido.itens + ' produto' + (pedido.itens > 1 ? 's' : '') + '</p></div>' +
+              '<div class="bg-marca-50/50 rounded-xl p-3"><p class="text-[10px] text-marca-700/50 uppercase tracking-wide">Pagamento</p><p class="font-bold text-marca-900 mt-1">' + pedido.pagamento + '</p></div>' +
+              '<div class="bg-marca-50/50 rounded-xl p-3"><p class="text-[10px] text-marca-700/50 uppercase tracking-wide">Data</p><p class="font-bold text-marca-900 mt-1">' + dataBR(pedido.data) + '</p></div>' +
+            '</div>' +
+            '<div class="bg-marca-50/30 rounded-xl p-3"><p class="text-[10px] text-marca-700/50 uppercase tracking-wide mb-2">Itens do Pedido</p>' +
+              '<div class="space-y-2">' +
+                '<div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-gradient-to-br from-marca-100 to-orange-100 flex items-center justify-center"><svg class="w-4 h-4 text-marca-DEFAULT" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h.75m3 3h.375a.375.375 0 00.375-.375v-1.125a.375.375 0 00-.375-.375H9.75a.375.375 0 00-.375.375v1.125c0 .207.168.375.375.375z"/></svg></div><div class="flex-1 min-w-0"><p class="text-xs font-medium text-marca-900 truncate">Produto Exemplo ' + (parseInt(pedido.id.replace('#','')) % 5 + 1) + '</p><p class="text-[10px] text-marca-700/40">Qtd: ' + Math.floor(Math.random()*3+1) + '</p></div><p class="text-xs font-semibold text-marca-900">R$ ' + (Math.random()*300+50).toFixed(2).replace('.',',') + '</p></div>' +
+                '<div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-gradient-to-br from-marca-100 to-orange-100 flex items-center justify-center"><svg class="w-4 h-4 text-marca-DEFAULT" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h.75m3 3h.375a.375.375 0 00.375-.375v-1.125a.375.375 0 00-.375-.375H9.75a.375.375 0 00-.375.375v1.125c0 .207.168.375.375.375z"/></svg></div><div class="flex-1 min-w-0"><p class="text-xs font-medium text-marca-900 truncate">Produto Exemplo ' + (parseInt(pedido.id.replace('#','')) % 5 + 2) + '</p><p class="text-[10px] text-marca-700/40">Qtd: ' + Math.floor(Math.random()*2+1) + '</p></div><p class="text-xs font-semibold text-marca-900">R$ ' + (Math.random()*200+30).toFixed(2).replace('.',',') + '</p></div>' +
+              '</div>' +
+            '</div>' +
+            (pedido.status === 'pendente' ? '<div class="flex gap-2 pt-2"><button onclick="fecharModal(); toast(\'Pedido cancelado com sucesso\', \'ok\')" class="flex-1 py-2.5 rounded-xl border border-red-200 text-red-600 text-sm font-medium hover:bg-red-50 active:scale-95 transition-all">Cancelar Pedido</button><button onclick="fecharModal(); toast(\'Pagamento confirmado!\', \'ok\')" class="flex-1 py-2.5 rounded-xl bg-marca-DEFAULT text-white text-sm font-medium hover:bg-marca-600 active:scale-95 transition-all">Confirmar Pagamento</button></div>' : '') +
+          '</div>';
+          abrirModal(html, 'Detalhes do Pedido ' + pedido.id);
+        };
+
+        window.painel_administrativo_alterarPeriodo = function(valor) {
+          toast('Período atualizado para últimos ' + valor + ' dias', 'info');
+        };
+
+        window.painel_administrativo_exportar = function() {
+          toast('Relatório gerado com sucesso!', 'ok');
+        };
+
+        function renderizarPedidos(filtro) {
+          var container = document.getElementById('painel-lista-pedidos');
+          var vazio = document.getElementById('painel-vazio');
+          container.innerHTML = '';
+          var statusCores = { pago: 'bg-green-100 text-green-700', pendente: 'bg-amber-100 text-amber-700', cancelado: 'bg-gray-100 text-gray-500' };
+          var statusLabel = { pago: 'Pago', pendente: 'Pendente', cancelado: 'Cancelado' };
+          var t = (filtro || '').toLowerCase().trim();
+          var lista = pedidos;
+          if (t) {
+            lista = pedidos.filter(function(p) { return p.cliente.toLowerCase().indexOf(t) !== -1 || p.id.toLowerCase().indexOf(t) !== -1; });
+          }
+          lista.forEach(function(p) {
+            var div = document.createElement('div');
+            div.className = 'flex items-center gap-3 px-4 py-3 hover:bg-marca-50/50 cursor-pointer active:bg-marca-50 transition-colors';
+            div.dataset.cliente = p.cliente;
+            div.dataset.id = p.id;
+            div.onclick = function() { painel_administrativo_verDetalhe(p); };
+            div.innerHTML = '<div class="w-9 h-9 rounded-full ' + p.corAvatar + ' flex items-center justify-center text-white font-bold text-xs flex-shrink-0">' + p.avatar + '</div>' +
+              '<div class="flex-1 min-w-0">' +
+                '<p class="text-sm font-medium text-marca-900 truncate">' + p.cliente + '</p>' +
+                '<p class="text-[11px] text-marca-700/45">' + p.id + ' · ' + p.itens + ' item' + (p.itens > 1 ? 's' : '') + ' · ' + dataBR(p.data) + '</p>' +
+              '</div>' +
+              '<span class="badge ' + statusCores[p.status] + ' text-[11px] px-2 py-0.5 rounded-full font-medium flex-shrink-0">' + statusLabel[p.status] + '</span>' +
+              '<p class="text-sm font-semibold text-marca-900 flex-shrink-0 w-16 text-right">R$ ' + p.valor.toFixed(2).replace('.', ',') + '</p>' +
+              '<button onclick="event.stopPropagation(); painel_administrativo_verDetalhe(pedidos.find(function(x){return x.id===\'' + p.id + '\'})" class="p-1.5 text-marca-700/40 hover:text-marca-DEFAULT transition-colors flex-shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></button>';
+            container.appendChild(div);
+          });
+          if (lista.length === 0) { vazio.classList.remove('hidden'); } else { vazio.classList.add('hidden'); }
+        }
+
+        function renderizarTopProdutos() {
+          var container = document.getElementById('painel-lista-produtos');
+          container.innerHTML = '';
+          topProdutos.forEach(function(p, i) {
+            var div = document.createElement('div');
+            div.className = 'flex items-center gap-3 px-4 py-3 hover:bg-marca-50/50 transition-colors';
+            div.innerHTML = '<span class="text-xs font-bold text-marca-700/30 w-5 text-center flex-shrink-0">' + (i + 1) + '</span>' +
+              '<div class="w-9 h-9 rounded-xl bg-gradient-to-br ' + p.imgGrad + ' flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h.75m3 3h.375a.375.375 0 00.375-.375v-1.125a.375.375 0 00-.375-.375H9.75a.375.375 0 00-.375.375v1.125c0 .207.168.375.375.375z"/></svg></div>' +
+              '<div class="flex-1 min-w-0"><p class="text-sm font-medium text-marca-900 truncate">' + p.nome + '</p><p class="text-[11px] text-marca-700/40">' + p.sku + '</p></div>' +
+              '<div class="text-right flex-shrink-0"><p class="text-xs font-semibold text-marca-900">R$ ' + p.receita.toFixed(2).replace('.', ',') + '</p><p class="text-[10px] text-marca-700/40">' + p.vendas + ' vendas</p></div>';
+            container.appendChild(div);
+          });
+        }
+
+        renderizarPedidos('');
+        renderizarTopProdutos();
+      })();
+      </script>
+    </section>
+
     <!-- TELAS -->
         </main>
 
