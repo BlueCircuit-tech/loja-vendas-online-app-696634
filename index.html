@@ -2363,6 +2363,450 @@
       </script>
     </section>
 
+    <section data-tela="gerenciar-produtos" class="hidden">
+      <div id="gp-stats" class="px-5 pt-2 pb-3">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-body text-stone-400 uppercase tracking-wider">Total</span>
+              <svg class="w-4 h-4 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+            <span id="gp-count-total" class="font-display text-2xl font-bold text-marca-800">0</span>
+            <span class="text-xs text-stone-400 mt-1">produtos</span>
+          </div>
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-body text-stone-400 uppercase tracking-wider">Ativos</span>
+              <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span id="gp-count-ativos" class="font-display text-2xl font-bold text-green-600">0</span>
+            <span class="text-xs text-stone-400 mt-1">no catálogo</span>
+          </div>
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-body text-stone-400 uppercase tracking-wider">Baixo Estoque</span>
+              <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+            </div>
+            <span id="gp-count-baixo" class="font-display text-2xl font-bold text-red-500">0</span>
+            <span class="text-xs text-stone-400 mt-1">atenção</span>
+          </div>
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-body text-stone-400 uppercase tracking-wider">Valor em Estoque</span>
+              <svg class="w-4 h-4 text-marca-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span id="gp-valor-estoque" class="font-display text-lg font-bold text-marca-800">R$ 0</span>
+            <span class="text-xs text-stone-400 mt-1">em inventário</span>
+          </div>
+        </div>
+        <div class="mt-3 bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-body text-stone-400 uppercase tracking-wider">Estoque por Categoria</span>
+          </div>
+          <svg id="gp-chart" class="w-full h-28" viewBox="0 0 320 100"></svg>
+        </div>
+      </div>
+
+      <div class="px-5 py-3">
+        <div class="flex gap-2 mb-3">
+          <div class="flex-1 relative">
+            <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input id="gp-search" type="text" placeholder="Buscar produto..." class="w-full pl-9 pr-4 py-2.5 bg-white border border-stone-200 rounded-xl text-sm font-body text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 transition-all">
+          </div>
+          <select id="gp-filter-cat" class="px-3 py-2.5 bg-white border border-stone-200 rounded-xl text-sm font-body text-stone-700 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 transition-all appearance-none pr-8" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22none%22 viewBox=%220 0 24 24%22 stroke=%22%2378716c%22><path stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22M19 9l-7 7-7-7%22/></svg>'); background-repeat: no-repeat; background-position: right 8px center; background-size: 14px;">
+            <option value="">Todos</option>
+          </select>
+        </div>
+        <div id="gp-list" class="space-y-3 pb-24"></div>
+        <div id="gp-empty" class="hidden text-center py-12">
+          <svg class="w-16 h-16 text-stone-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          <p class="font-body text-stone-400 text-sm">Nenhum produto encontrado</p>
+        </div>
+      </div>
+
+      <button onclick="gerenciar_produtos_abrirCadastro()" class="fixed bottom-6 right-6 w-14 h-14 bg-marca-500 hover:bg-marca-600 active:scale-95 rounded-full shadow-lg shadow-marca-500/30 flex items-center justify-center transition-all z-40">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+      </button>
+
+      <div id="gp-modal-overlay" class="fixed inset-0 bg-black/50 z-50 hidden flex items-end justify-center" onclick="if(event.target===this)fecharModal()">
+        <div id="gp-modal-content" class="bg-white rounded-t-3xl w-full max-w-[430px] max-h-[85vh] overflow-y-auto transform transition-transform duration-300 translate-y-full"></div>
+      </div>
+
+      <div id="gp-toast-area" class="fixed top-4 left-4 right-4 z-50 pointer-events-none flex flex-col items-center gap-2"></div>
+
+      <script>
+      (function(){
+        const categorias = ['Eletrônicos','Informática','Acessórios','Casa & Decoração','Esportes','Moda','Brinquedos','Livros'];
+
+        let produtos = [
+          {id:1,nome:'Fone Bluetooth Pro X1',categoria:'Eletrônicos',precoCusto:89.90,precoVenda:249.90,estoque:23,status:'ativo',fotos:[''],descricao:'Fone de ouvido bluetooth com cancelamento de ruído ativo e 40h de bateria.',criado:'2025-09-12'},
+          {id:2,nome:'Mouse Gamer RGB V2',categoria:'Informática',precoCusto:55.00,precoVenda:179.90,estoque:8,status:'ativo',fotos:[''],descricao:'Mouse gamer 16000 DPI, iluminação RGB e 7 botões programáveis.',criado:'2025-09-18'},
+          {id:3,nome:'Cabo USB-C 2m Premium',categoria:'Acessórios',precoCusto:8.50,precoVenda:34.90,estoque:150,status:'ativo',fotos:[''],descricao:'Cabo USB-C trançado em nylon, 2 metros, carga rápida 100W.',criado:'2025-10-01'},
+          {id:4,nome:'Luminária LED Mesa',categoria:'Casa & Decoração',precoCusto:42.00,precoVenda:129.90,estoque:3,status:'ativo',fotos:[''],descricao:'Luminária articulável com 3 modos de temperatura e USB embutido.',criado:'2025-10-05'},
+          {id:5,nome:'Garrafa Térmica 1L',categoria:'Esportes',precoCusto:18.00,precoVenda:79.90,estoque:0,status:'inativo',fotos:[''],descricao:'Garrafa térmica aço inoxidável, mantém 12h quente / 24h gelado.',criado:'2025-10-10'},
+          {id:6,nome:'Caderno Universitário Capa Dura',categoria:'Livros',precoCusto:7.20,precoVenda:29.90,estoque:45,status:'ativo',fotos:[''],descricao:'Caderno 200 folhas, pautado, capa dura com elástico e marcador.',criado:'2025-10-15'},
+          {id:7,nome:'Camiseta Algodão Premium',categoria:'Moda',precoCusto:22.00,precoVenda:89.90,estoque:6,status:'ativo',fotos:[''],descricao:'Camiseta 100% algodão pima, corte regular, disponível em 8 cores.',criado:'2025-10-20'},
+          {id:8,nome:'Teclado Mecânico Blue Switch',categoria:'Informática',precoCusto:120.00,precoVenda:349.90,estoque:2,status:'ativo',fotos:[''],descricao:'Teclado mecânico ABNT2, switches blue, keycaps PBT doubleshot.',criado:'2025-10-25'}
+        ];
+        let nextId = 9;
+
+        function formatCurrency(v){ return 'R$ ' + v.toFixed(2).replace('.',','); }
+        function getCorAvatar(cat){ const cores = {'Eletrônicos':'#7C2D12','Informática':'#1E40AF','Acessórios':'#065F46','Casa & Decoração':'#92400E','Esportes':'#BE123C','Moda':'#6B21A8','Brinquedos':'#0369A1','Livros':'#854D0E'}; return cores[cat]||'#7C2D12'; }
+        function getIniciais(nome){ const p=nome.split(' '); return (p[0][0]+(p[1]?p[1][0]:'')).toUpperCase(); }
+
+        function atualizarStats(){
+          const total=produtos.length;
+          const ativos=produtos.filter(p=>p.status==='ativo').length;
+          const baixo=produtos.filter(p=>p.estoque<5&&p.status==='ativo').length;
+          const valorTotal=produtos.reduce((s,p)=>s+p.precoCusto*p.estoque,0);
+          const animar=(el,val)=>{ el.textContent=val; };
+          animar(document.getElementById('gp-count-total'),total);
+          animar(document.getElementById('gp-count-ativos'),ativos);
+          animar(document.getElementById('gp-count-baixo'),baixo);
+          document.getElementById('gp-valor-estoque').textContent=formatCurrency(valorTotal);
+          renderizarChart();
+        }
+
+        function renderizarChart(){
+          const catData=categorias.slice(0,6).map(c=>produtos.filter(p=>p.categoria===c).reduce((s,p)=>s+p.estoque,0));
+          const max=Math.max(...catData,1);
+          const cores=['#7C2D12','#F97316','#C2410C','#FB923C','#9A3412','#EA580C'];
+          let svg='';
+          catData.forEach((v,i)=>{
+            const h=Math.round((v/max)*80);
+            const x=10+i*50;
+            svg+=`<rect x="${x}" y="${90-h}" width="30" height="${h}" rx="4" fill="${cores[i]}" opacity="0.8" class="transition-all duration-500"/><text x="${x+15}" y="98" text-anchor="middle" fill="#78716C" font-size="8" font-family="sans-serif">${categorias[i].substring(0,3)}</text><text x="${x+15}" y="${86-h}" text-anchor="middle" fill="#7C2D12" font-size="8" font-weight="bold" font-family="sans-serif">${v}</text>`;
+          });
+          document.getElementById('gp-chart').innerHTML=svg;
+        }
+
+        function renderizarLista(lista){
+          const container=document.getElementById('gp-list');
+          const empty=document.getElementById('gp-empty');
+          if(lista.length===0){
+            container.innerHTML='';
+            empty.classList.remove('hidden');
+            return;
+          }
+          empty.classList.add('hidden');
+          container.innerHTML=lista.map(p=>{
+            const estoqueBadge=p.estoque>10
+              ?'<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 text-green-700 text-xs font-medium"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>'+p.estoque+' un.</span>'
+              :p.estoque<5&&p.estoque>0
+              ?'<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-50 text-red-700 text-xs font-medium"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>'+p.estoque+' un.</span>'
+              :p.estoque===0
+              ?'<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-stone-100 text-stone-500 text-xs font-medium">Esgotado</span>'
+              :'<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-yellow-50 text-yellow-700 text-xs font-medium"><span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>'+p.estoque+' un.</span>';
+            const statusBadge=p.status==='ativo'
+              ?'<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 text-green-700 text-xs font-medium">Ativo</span>'
+              :'<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-stone-100 text-stone-500 text-xs font-medium">Inativo</span>';
+            const fotoHtml=p.fotos&&p.fotos[0]&&p.fotos[0]!==''
+              ?`<img src="${p.fotos[0]}" class="w-14 h-14 rounded-xl object-cover flex-shrink-0">`
+              :`<div class="w-14 h-14 rounded-xl flex-shrink-0 flex items-center justify-center text-white font-display font-bold text-sm" style="background:${getCorAvatar(p.categoria)}">${getIniciais(p.nome)}</div>`;
+            return `
+            <div class="gp-item bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden relative" data-id="${p.id}">
+              <div class="flex items-center gap-3 p-3">
+                ${fotoHtml}
+                <div class="flex-1 min-w-0" onclick="gerenciar_produtos_abrirDetalhe(${p.id})">
+                  <h3 class="font-display font-semibold text-sm text-stone-800 truncate">${p.nome}</h3>
+                  <p class="text-xs text-stone-400 mt-0.5">${p.categoria}</p>
+                  <div class="flex items-center gap-2 mt-1.5">
+                    <span class="font-display font-bold text-marca-700 text-sm">${formatCurrency(p.precoVenda)}</span>
+                    <span class="text-xs text-stone-400 line-through">${formatCurrency(p.precoCusto)}</span>
+                  </div>
+                </div>
+                <div class="flex flex-col items-end gap-1.5" onclick="gerenciar_produtos_abrirDetalhe(${p.id})">
+                  ${statusBadge}
+                  ${estoqueBadge}
+                </div>
+              </div>
+              <div class="gp-actions flex border-t border-stone-100">
+                <button onclick="gerenciar_produtos_editar(${p.id})" class="flex-1 py-2.5 text-xs font-body font-medium text-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>Editar
+                </button>
+                <button onclick="gerenciar_produtos_duplicar(${p.id})" class="flex-1 py-2.5 text-xs font-body font-medium text-marca-600 hover:bg-marca-50 transition-colors flex items-center justify-center gap-1 border-l border-stone-100">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>Duplicar
+                </button>
+                <button onclick="gerenciar_produtos_confirmarExclusao(${p.id})" class="flex-1 py-2.5 text-xs font-body font-medium text-red-500 hover:bg-red-50 transition-colors flex items-center justify-center gap-1 border-l border-stone-100">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>Excluir
+                </button>
+              </div>
+            </div>`;
+          }).join('');
+        }
+
+        function aplicarFiltros(){
+          const q=document.getElementById('gp-search').value.toLowerCase().trim();
+          const cat=document.getElementById('gp-filter-cat').value;
+          let filtrados=produtos.filter(p=>{
+            const matchNome=!q||p.nome.toLowerCase().includes(q)||p.descricao.toLowerCase().includes(q);
+            const matchCat=!cat||p.categoria===cat;
+            return matchNome&&matchCat;
+          });
+          renderizarLista(filtrados);
+        }
+
+        window.gerenciar_produtos_abrirCadastro=function(editarId){
+          const p=editarId?produtos.find(x=>x.id===editarId):null;
+          const titulo=p?'Editar Produto':'Cadastrar Produto';
+          const catOptions=categorias.map(c=>`<option value="${c}" ${p&&p.categoria===c?'selected':''}>${c}</option>`).join('');
+          const html=`
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-5">
+                <h2 class="font-display font-bold text-lg text-stone-800">${titulo}</h2>
+                <button onclick="fecharModal()" class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+              </div>
+              <form id="gp-form" onsubmit="event.preventDefault(); gerenciar_produtos_salvar(${editarId||'null'})">
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-xs font-body font-medium text-stone-500 mb-1.5 uppercase tracking-wider">Nome do Produto</label>
+                    <input name="nome" value="${p?p.nome:''}" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm font-body text-stone-800 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 transition-all" placeholder="Ex: Camiseta Algodão Premium">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-body font-medium text-stone-500 mb-1.5 uppercase tracking-wider">Descrição</label>
+                    <textarea name="descricao" rows="2" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm font-body text-stone-800 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 transition-all resize-none" placeholder="Descreva o produto...">${p?p.descricao:''}</textarea>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-body font-medium text-stone-500 mb-1.5 uppercase tracking-wider">Categoria</label>
+                    <select name="categoria" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm font-body text-stone-800 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 transition-all appearance-none" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22none%22 viewBox=%220 0 24 24%22 stroke=%22%2378716c%22><path stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22M19 9l-7 7-7-7%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;">
+                      ${catOptions}
+                    </select>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs font-body font-medium text-stone-500 mb-1.5 uppercase tracking-wider">Preço de Custo</label>
+                      <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm font-body">R$</span>
+                        <input name="precoCusto" type="number" step="0.01" min="0" value="${p?p.precoCusto:''}" required class="w-full pl-9 pr-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm font-body text-stone-800 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 transition-all" placeholder="0,00">
+                      </div>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-body font-medium text-stone-500 mb-1.5 uppercase tracking-wider">Preço de Venda</label>
+                      <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-marca-500 text-sm font-body font-bold">R$</span>
+                        <input name="precoVenda" type="number" step="0.01" min="0" value="${p?p.precoVenda:''}" required class="w-full pl-9 pr-4 py-3 bg-marca-50/50 border border-marca-200 rounded-xl text-sm font-body font-semibold text-marca-800 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 transition-all" placeholder="0,00">
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-body font-medium text-stone-500 mb-1.5 uppercase tracking-wider">Quantidade em Estoque</label>
+                    <input name="estoque" type="number" min="0" value="${p?p.estoque:''}" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm font-body text-stone-800 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 transition-all" placeholder="0">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-body font-medium text-stone-500 mb-1.5 uppercase tracking-wider">Fotos do Produto</label>
+                    <div class="border-2 border-dashed border-stone-200 rounded-xl p-4 text-center hover:border-marca-300 transition-colors cursor-pointer" onclick="gerenciar_produtos_simularUpload()">
+                      <svg class="w-8 h-8 text-stone-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                      <p class="text-xs text-stone-400 font-body">Toque para adicionar fotos</p>
+                      <p class="text-xs text-stone-300 font-body mt-1">JPG, PNG até 5MB</p>
+                    </div>
+                    <div id="gp-photo-preview" class="flex gap-2 mt-3 flex-wrap"></div>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-body font-medium text-stone-500 mb-1.5 uppercase tracking-wider">Status</label>
+                    <div class="flex gap-2">
+                      <label class="flex-1 cursor-pointer">
+                        <input type="radio" name="status" value="ativo" ${!p||p.status==='ativo'?'checked':''} class="hidden peer">
+                        <div class="py-2.5 text-center rounded-xl border-2 border-stone-200 peer-checked:border-green-500 peer-checked:bg-green-50 transition-all text-sm font-body text-stone-600 peer-checked:text-green-700 peer-checked:font-medium">Ativo</div>
+                      </label>
+                      <label class="flex-1 cursor-pointer">
+                        <input type="radio" name="status" value="inativo" ${p&&p.status==='inativo'?'checked':''} class="hidden peer">
+                        <div class="py-2.5 text-center rounded-xl border-2 border-stone-200 peer-checked:border-stone-400 peer-checked:bg-stone-50 transition-all text-sm font-body text-stone-600 peer-checked:text-stone-500 peer-checked:font-medium">Inativo</div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="w-full mt-5 py-3.5 bg-marca-500 hover:bg-marca-600 active:scale-[0.98] text-white font-display font-semibold text-sm rounded-xl transition-all shadow-md shadow-marca-500/20 flex items-center justify-center gap-2">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  ${editarId?'Salvar Alterações':'Cadastrar Produto'}
+                </button>
+              </form>
+            </div>
+          `;
+          abrirModal(html, titulo);
+        };
+
+        window.gerenciar_produtos_salvar=function(editarId){
+          const form=document.getElementById('gp-form');
+          const dados=new FormData(form);
+          const nome=dados.get('nome').trim();
+          const descricao=dados.get('descricao').trim();
+          const categoria=dados.get('categoria');
+          const precoCusto=parseFloat(dados.get('precoCusto'));
+          const precoVenda=parseFloat(dados.get('precoVenda'));
+          const estoque=parseInt(dados.get('estoque'));
+          const status=dados.get('status');
+          if(!nome||isNaN(precoCusto)||isNaN(precoVenda)||isNaN(estoque)){ toast('Preencha todos os campos corretamente','erro'); return; }
+          if(precoVenda<precoCusto){ toast('Preço de venda não pode ser menor que o de custo','erro'); return; }
+          if(editarId){
+            const p=produtos.find(x=>x.id===editarId);
+            if(p){ Object.assign(p,{nome,descricao,categoria,precoCusto,precoVenda,estoque,status}); }
+            toast('Produto atualizado com sucesso','ok');
+          } else {
+            produtos.push({id:nextId++,nome,descricao,categoria,precoCusto,precoVenda,estoque,status,fotos:[''],criado:new Date().toISOString().split('T')[0]});
+            toast('Produto cadastrado com sucesso','ok');
+          }
+          fecharModal();
+          atualizarStats();
+          aplicarFiltros();
+        };
+
+        window.gerenciar_produtos_editar=function(id){
+          gerenciar_produtos_abrirCadastro(id);
+        };
+
+        window.gerenciar_produtos_duplicar=function(id){
+          const p=produtos.find(x=>x.id===id);
+          if(!p)return;
+          const novo={...p,id:nextId++,nome:p.nome+' (cópia)',criado:new Date().toISOString().split('T')[0]};
+          produtos.push(novo);
+          toast('Produto duplicado','ok');
+          atualizarStats();
+          aplicarFiltros();
+        };
+
+        window.gerenciar_produtos_confirmarExclusao=function(id){
+          const p=produtos.find(x=>x.id===id);
+          if(!p)return;
+          const html=`
+            <div class="p-5 text-center">
+              <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </div>
+              <h3 class="font-display font-bold text-lg text-stone-800 mb-1">Excluir Produto</h3>
+              <p class="text-sm text-stone-500 font-body mb-5">Tem certeza que deseja excluir <strong>${p.nome}</strong>? Esta ação não pode ser desfeita.</p>
+              <div class="flex gap-3">
+                <button onclick="fecharModal()" class="flex-1 py-3 border border-stone-200 rounded-xl text-sm font-body font-medium text-stone-600 hover:bg-stone-50 transition-colors active:scale-95">Cancelar</button>
+                <button onclick="gerenciar_produtos_excluir(${id})" class="flex-1 py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm font-body font-medium transition-colors active:scale-95">Excluir</button>
+              </div>
+            </div>
+          `;
+          abrirModal(html,'Confirmar Exclusão');
+        };
+
+        window.gerenciar_produtos_excluir=function(id){
+          produtos=produtos.filter(p=>p.id!==id);
+          fecharModal();
+          toast('Produto removido','info');
+          atualizarStats();
+          aplicarFiltros();
+        };
+
+        window.gerenciar_produtos_abrirDetalhe=function(id){
+          const p=produtos.find(x=>x.id===id);
+          if(!p)return;
+          const lucro=p.precoVenda-p.precoCusto;
+          const margem=p.precoCusto>0?((lucro/p.precoVenda)*100).toFixed(1):0;
+          const estoqueInfo=p.estoque>10
+            ?'<span class="text-green-600 font-medium">'+p.estoque+' unidades — Estoque saudável</span>'
+            :p.estoque<5&&p.estoque>0
+            ?'<span class="text-red-500 font-medium">'+p.estoque+' unidades — Estoque baixo!</span>'
+            :p.estoque===0
+            ?'<span class="text-stone-400 font-medium">Sem estoque disponível</span>'
+            :'<span class="text-yellow-600 font-medium">'+p.estoque+' unidades — Atenção</span>';
+          const fotoHtml=p.fotos&&p.fotos[0]&&p.fotos[0]!==''
+            ?`<img src="${p.fotos[0]}" class="w-full h-48 object-cover rounded-2xl">`
+            :`<div class="w-full h-48 rounded-2xl flex items-center justify-center text-white font-display text-4xl font-bold" style="background:${getCorAvatar(p.categoria)}">${getIniciais(p.nome)}</div>`;
+          const html=`
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="font-display font-bold text-lg text-stone-800">Detalhes</h2>
+                <button onclick="fecharModal()" class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+              </div>
+              ${fotoHtml}
+              <div class="mt-4">
+                <h3 class="font-display font-bold text-xl text-stone-800">${p.nome}</h3>
+                <span class="inline-block mt-1 px-2.5 py-1 rounded-full bg-marca-50 text-marca-700 text-xs font-medium">${p.categoria}</span>
+              </div>
+              <p class="text-sm text-stone-500 font-body mt-3 leading-relaxed">${p.descricao}</p>
+              <div class="grid grid-cols-2 gap-3 mt-4">
+                <div class="bg-marca-50 rounded-xl p-3">
+                  <span class="text-xs text-stone-500 font-body block mb-1">Preço de Venda</span>
+                  <span class="font-display font-bold text-lg text-marca-700">${formatCurrency(p.precoVenda)}</span>
+                </div>
+                <div class="bg-stone-50 rounded-xl p-3">
+                  <span class="text-xs text-stone-500 font-body block mb-1">Preço de Custo</span>
+                  <span class="font-display font-bold text-lg text-stone-600">${formatCurrency(p.precoCusto)}</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 mt-3">
+                <div class="bg-green-50 rounded-xl p-3">
+                  <span class="text-xs text-stone-500 font-body block mb-1">Lucro por un.</span>
+                  <span class="font-display font-bold text-lg text-green-600">${formatCurrency(lucro)}</span>
+                </div>
+                <div class="bg-blue-50 rounded-xl p-3">
+                  <span class="text-xs text-stone-500 font-body block mb-1">Margem</span>
+                  <span class="font-display font-bold text-lg text-blue-600">${margem}%</span>
+                </div>
+              </div>
+              <div class="mt-4 bg-stone-50 rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-xs text-stone-400 font-body block">Estoque</span>
+                    ${estoqueInfo}
+                  </div>
+                  <div class="w-16 h-16 relative">
+                    <svg class="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                      <circle cx="18" cy="18" r="14" fill="none" stroke="#E7E5E4" stroke-width="3"/>
+                      <circle cx="18" cy="18" r="14" fill="none" stroke="${p.estoque>10?'#22C55E':p.estoque<5?'#EF4444':'#EAB308'}" stroke-width="3" stroke-dasharray="${Math.min(p.estoque,100)} 100" stroke-linecap="round"/>
+                    </svg>
+                    <span class="absolute inset-0 flex items-center justify-center font-display font-bold text-xs text-stone-700">${p.estoque}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-2 mt-4">
+                <span class="px-3 py-1.5 rounded-full text-xs font-medium ${p.status==='ativo'?'bg-green-50 text-green-700':'bg-stone-100 text-stone-500'}">${p.status==='ativo'?'Ativo':'Inativo'}</span>
+                <span class="px-3 py-1.5 rounded-full bg-marca-50 text-marca-700 text-xs font-medium">Cadastrado em ${p.criado}</span>
+              </div>
+              <div class="flex gap-3 mt-5">
+                <button onclick="fecharModal(); gerenciar_produtos_editar(${p.id})" class="flex-1 py-3 bg-marca-500 hover:bg-marca-600 text-white rounded-xl text-sm font-body font-medium transition-colors active:scale-95 flex items-center justify-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>Editar
+                </button>
+                <button onclick="fecharModal(); gerenciar_produtos_confirmarExclusao(${p.id})" class="py-3 px-4 border border-red-200 text-red-500 rounded-xl text-sm font-body font-medium hover:bg-red-50 transition-colors active:scale-95">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            </div>
+          `;
+          abrirModal(html,'Detalhes do Produto');
+        };
+
+        window.gerenciar_produtos_simularUpload=function(){
+          const preview=document.getElementById('gp-photo-preview');
+          const cores=['#7C2D12','#F97316','#1E40AF','#065F46','#6B21A8','#BE123C','#0369A1','#854D0E'];
+          const nomes=['foto1','foto2','foto3'];
+          const existing=preview.querySelectorAll('.gp-thumb').length;
+          if(existing>=3){ toast('Máximo de 3 fotos','info'); return; }
+          const cor=cores[existing%cores.length];
+          const inicial=nomes[existing]||'f';
+          const div=document.createElement('div');
+          div.className='gp-thumb relative w-20 h-20 rounded-xl flex items-center justify-center text-white font-display font-bold text-sm';
+          div.style.background=cor;
+          div.textContent=inicial;
+          const btn=document.createElement('button');
+          btn.type='button';
+          btn.className='absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs leading-none';
+          btn.innerHTML='×';
+          btn.onclick=function(){ div.remove(); };
+          div.appendChild(btn);
+          preview.appendChild(div);
+        };
+
+        document.getElementById('gp-search').addEventListener('input',aplicarFiltros);
+        document.getElementById('gp-filter-cat').addEventListener('change',aplicarFiltros);
+
+        const catSelect=document.getElementById('gp-filter-cat');
+        categorias.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; catSelect.appendChild(o); });
+
+        atualizarStats();
+        renderizarLista(produtos);
+      })();
+      </script>
+    </section>
+
     <!-- TELAS -->
         </main>
 
