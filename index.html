@@ -1306,6 +1306,469 @@
       </script>
     </section>
 
+    <section data-tela="finalizar-pedido" class="hidden">
+    <div id="fp-conteudo" class="px-5 pt-2 pb-28 space-y-5">
+
+        <!-- Cabeçalho -->
+        <div>
+            <h1 class="font-display text-2xl font-bold text-marca-900">Finalizar Pedido</h1>
+            <p class="text-sm text-stone-500 mt-1">Revise os dados e confirme sua compra</p>
+        </div>
+
+        <!-- Indicador de etapas -->
+        <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1.5 text-xs font-medium text-marca-700">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Carrinho
+            </div>
+            <div class="flex-1 h-0.5 bg-marca-900 rounded"></div>
+            <div class="flex items-center gap-1.5 text-xs font-bold text-marca-900">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                Pagamento
+            </div>
+            <div class="flex-1 h-0.5 bg-stone-200 rounded"></div>
+            <div class="flex items-center gap-1.5 text-xs font-medium text-stone-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+                Confirmação
+            </div>
+        </div>
+
+        <!-- ============ ENDEREÇO ============ -->
+        <div id="fp-endereco-card" class="card p-4">
+            <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-marca-100 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-marca-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="font-display text-sm font-bold text-marca-900">Endereço de Entrega</h2>
+                        <p class="text-xs text-stone-500">Entrega em 3-5 dias úteis</p>
+                    </div>
+                </div>
+                <button onclick="finalizar_pedido_editarEndereco()" class="p-2 rounded-lg hover:bg-marca-50 active:scale-95 transition-all" title="Editar endereço">
+                    <svg class="w-5 h-5 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                </button>
+            </div>
+            <div class="bg-stone-100 rounded-xl overflow-hidden relative" style="height:120px">
+                <div class="absolute inset-0" style="background:linear-gradient(135deg, #f5e6d3 0%, #f0dcc5 50%, #e8d0b0 100%)"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="flex justify-center mb-1">
+                            <div class="w-6 h-6 bg-marca-900 rounded-full flex items-center justify-center shadow-lg">
+                                <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5" fill="white"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-[10px] font-medium text-marca-800 bg-white/80 rounded-full px-2 py-0.5 inline-block shadow-sm">R. das Palmeiras, 240</p>
+                    </div>
+                </div>
+                <div class="absolute inset-0 opacity-10" style="background-image:repeating-linear-gradient(0deg, transparent, transparent 19px, #7C2D12 19px, #7C2D12 20px), repeating-linear-gradient(90deg, transparent, transparent 19px, #7C2D12 19px, #7C2D12 20px)"></div>
+            </div>
+            <div class="mt-3 space-y-1">
+                <p class="text-sm font-semibold text-marca-900">Maria Silva</p>
+                <p class="text-xs text-stone-600">Rua das Palmeiras, 240, Apto 102</p>
+                <p class="text-xs text-stone-600">Jardim América, São Paulo - SP</p>
+                <p class="text-xs text-stone-600">CEP 01420-001</p>
+                <p class="text-xs text-stone-500">(11) 99876-5432</p>
+            </div>
+        </div>
+
+        <!-- ============ FORMA DE PAGAMENTO ============ -->
+        <div class="card p-4">
+            <div class="flex items-center gap-2 mb-3">
+                <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                </div>
+                <div>
+                    <h2 class="font-display text-sm font-bold text-marca-900">Forma de Pagamento</h2>
+                    <p class="text-xs text-stone-500">Escolha como deseja pagar</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2" id="fp-pagamento-opcoes">
+                <button onclick="finalizar_pedido_selecionarPagamento('cartao')" id="fp-btn-cartao" class="fp-pg-btn flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 border-marca-900 bg-marca-50 transition-all active:scale-95">
+                    <svg class="w-6 h-6 text-marca-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke-width="2"/><path d="M2 10h20" stroke-width="2"/></svg>
+                    <span class="text-[11px] font-bold text-marca-900">Cartão</span>
+                    <div class="w-4 h-4 rounded-full border-2 border-marca-900 flex items-center justify-center">
+                        <div class="w-2 h-2 rounded-full bg-marca-900"></div>
+                    </div>
+                </button>
+                <button onclick="finalizar_pedido_selecionarPagamento('pix')" id="fp-btn-pix" class="fp-pg-btn flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 border-stone-200 bg-white transition-all active:scale-95 hover:border-stone-300">
+                    <svg class="w-6 h-6 text-stone-400" fill="currentColor" viewBox="0 0 24 24"><path d="M1.5 7.125a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm6 0a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm5.625 0a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm6 0a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zM2.25 14.25a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm6 0a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm5.625 0a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm6 0a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"/></svg>
+                    <span class="text-[11px] font-bold text-stone-500">Pix</span>
+                    <div class="w-4 h-4 rounded-full border-2 border-stone-300"></div>
+                </button>
+                <button onclick="finalizar_pedido_selecionarPagamento('boleto')" id="fp-btn-boleto" class="fp-pg-btn flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 border-stone-200 bg-white transition-all active:scale-95 hover:border-stone-300">
+                    <svg class="w-6 h-6 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span class="text-[11px] font-bold text-stone-500">Boleto</span>
+                    <div class="w-4 h-4 rounded-full border-2 border-stone-300"></div>
+                </button>
+            </div>
+
+            <!-- Formulário do Cartão -->
+            <div id="fp-form-cartao" class="mt-4 space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-marca-900 mb-1">Número do Cartão</label>
+                    <div class="relative">
+                        <input type="text" id="fp-numero-cartao" placeholder="0000 0000 0000 0000" maxlength="19" oninput="finalizar_pedido_mascaraCartao(this)" class="fp-input w-full px-3 py-2.5 pr-10 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none transition-colors" />
+                        <svg class="w-5 h-5 text-stone-400 absolute right-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke-width="2"/><path d="M2 10h20" stroke-width="2"/></svg>
+                    </div>
+                    <p class="fp-erro hidden text-[11px] text-red-500 mt-0.5"></p>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-marca-900 mb-1">Nome no Cartão</label>
+                    <input type="text" id="fp-nome-cartao" placeholder="Nome como no cartão" oninput="finalizar_pedido_validarCampo(this)" class="fp-input w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none transition-colors uppercase" />
+                    <p class="fp-erro hidden text-[11px] text-red-500 mt-0.5"></p>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-marca-900 mb-1">Validade</label>
+                        <input type="text" id="fp-validade" placeholder="MM/AA" maxlength="5" oninput="finalizar_pedido_mascaraValidade(this)" class="fp-input w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none transition-colors" />
+                        <p class="fp-erro hidden text-[11px] text-red-500 mt-0.5"></p>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-marca-900 mb-1">CVV</label>
+                        <div class="relative">
+                            <input type="text" id="fp-cvv" placeholder="000" maxlength="4" oninput="finalizar_pedido_mascaraCVV(this)" class="fp-input w-full px-3 py-2.5 pr-10 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none transition-colors" />
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                        <p class="fp-erro hidden text-[11px] text-red-500 mt-0.5"></p>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-marca-900 mb-1">Parcelas</label>
+                    <select id="fp-parcelas" class="w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none transition-colors bg-white">
+                        <option value="1">1x de R$ 465,60 sem juros</option>
+                        <option value="2">2x de R$ 232,80 sem juros</option>
+                        <option value="3" selected>3x de R$ 155,20 sem juros</option>
+                        <option value="4">4x de R$ 116,40 sem juros</option>
+                        <option value="5">5x de R$ 93,12 sem juros</option>
+                        <option value="6">6x de R$ 77,60 sem juros</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Info Pix -->
+            <div id="fp-info-pix" class="hidden mt-4 p-4 bg-orange-50 rounded-xl border border-orange-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span class="text-sm font-bold text-orange-800">Pagamento via Pix</span>
+                </div>
+                <p class="text-xs text-orange-700">Após confirmar o pedido, você receberá o QR Code para pagamento instantâneo. O pedido é aprovado em até 5 minutos.</p>
+                <div class="mt-3 flex items-center gap-2 text-xs text-orange-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    Aprovação imediata
+                </div>
+            </div>
+
+            <!-- Info Boleto -->
+            <div id="fp-info-boleto" class="hidden mt-4 p-4 bg-orange-50 rounded-xl border border-orange-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span class="text-sm font-bold text-orange-800">Pagamento via Boleto</span>
+                </div>
+                <p class="text-xs text-orange-700">O boleto será enviado por e-mail. Vencimento em 3 dias úteis. Pedido confirmado após compensação bancária.</p>
+                <div class="mt-3 flex items-center gap-2 text-xs text-orange-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Prazo de compensação: até 3 dias úteis
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ RESUMO DO PEDIDO ============ -->
+        <div class="card p-4">
+            <div class="flex items-center gap-2 mb-3">
+                <div class="w-8 h-8 rounded-lg bg-marca-100 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-marca-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                </div>
+                <div>
+                    <h2 class="font-display text-sm font-bold text-marca-900">Resumo do Pedido</h2>
+                    <p class="text-xs text-stone-500">3 itens</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 mb-3">
+                <div class="flex gap-3 items-start">
+                    <div class="w-14 h-14 rounded-xl flex-shrink-0 flex items-center justify-center" style="background:linear-gradient(135deg, #f5e6d3, #d4a574)">
+                        <svg class="w-7 h-7 text-marca-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-sm font-semibold text-marca-900 truncate">Manual de Carpintaria</h3>
+                        <p class="text-xs text-stone-500">Capa dura, 320 páginas</p>
+                        <div class="flex items-center justify-between mt-1">
+                            <span class="text-xs text-stone-500">Qtd: 1</span>
+                            <span class="text-sm font-bold text-marca-900">R$ 89,90</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-3 items-start">
+                    <div class="w-14 h-14 rounded-xl flex-shrink-0 flex items-center justify-center" style="background:linear-gradient(135deg, #e8d5c4, #c4956a)">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-sm font-semibold text-marca-900 truncate">Kit Tintas Premium</h3>
+                        <p class="text-xs text-stone-500">6 cores, 100ml cada</p>
+                        <div class="flex items-center justify-between mt-1">
+                            <span class="text-xs text-stone-500">Qtd: 2</span>
+                            <span class="text-sm font-bold text-marca-900">R$ 199,80</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-3 items-start">
+                    <div class="w-14 h-14 rounded-xl flex-shrink-0 flex items-center justify-center" style="background:linear-gradient(135deg, #f0e0cc, #b8945e)">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-sm font-semibold text-marca-900 truncate">Ferramentas Básicas</h3>
+                        <p class="text-xs text-stone-500">Kit com 5 peças</p>
+                        <div class="flex items-center justify-between mt-1">
+                            <span class="text-xs text-stone-500">Qtd: 1</span>
+                            <span class="text-sm font-bold text-marca-900">R$ 160,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-stone-100 pt-3 space-y-1.5">
+                <div class="flex justify-between text-xs text-stone-500">
+                    <span>Subtotal</span>
+                    <span id="fp-subtotal">R$ 449,70</span>
+                </div>
+                <div class="flex justify-between text-xs text-stone-500">
+                    <span>Frete</span>
+                    <span class="text-emerald-600 font-medium">Grátis</span>
+                </div>
+                <div class="flex justify-between items-center pt-2 border-t border-stone-100">
+                    <span class="text-sm font-bold text-marca-900">Total</span>
+                    <span id="fp-total" class="text-lg font-bold text-marca-900">R$ 449,70</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ CUPOM ============ -->
+        <div class="card p-4">
+            <div class="flex items-center gap-2 mb-3">
+                <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+                </div>
+                <div>
+                    <h2 class="font-display text-sm font-bold text-marca-900">Cupom de Desconto</h2>
+                    <p class="text-xs text-stone-500">Possui um cupom?</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <input type="text" id="fp-cupom" placeholder="Digite o código" class="fp-input flex-1 px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none transition-colors uppercase" />
+                <button onclick="finalizar_pedido_aplicarCupom()" class="px-4 py-2.5 bg-marca-900 text-white text-sm font-bold rounded-xl active:scale-95 transition-all hover:bg-marca-800">Aplicar</button>
+            </div>
+            <p id="fp-msg-cupom" class="hidden text-xs mt-1.5"></p>
+        </div>
+
+        <!-- ============ TERMOS ============ -->
+        <div class="flex items-start gap-3">
+            <button onclick="finalizar_pedido_toggleTermos()" id="fp-check-termos" class="mt-0.5 w-5 h-5 rounded-md border-2 border-stone-300 flex items-center justify-center flex-shrink-0 transition-all hover:border-marca-500 active:scale-90">
+            </button>
+            <label class="text-xs text-stone-600 leading-relaxed cursor-pointer" onclick="finalizar_pedido_toggleTermos()">
+                Li e aceito os <button class="text-marca-700 font-semibold underline" onclick="event.stopPropagation();mostrarTela('pagina-inicial')">Termos de Uso</button> e a <button class="text-marca-700 font-semibold underline" onclick="event.stopPropagation();mostrarTela('pagina-inicial')">Política de Privacidade</button>. Autorizo o tratamento dos meus dados pessoais conforme a LGPD.
+            </label>
+        </div>
+
+        <!-- Segurança -->
+        <div class="flex items-center justify-center gap-1.5 py-2">
+            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <span class="text-[11px] text-stone-500">Pagamento 100% seguro e criptografado</span>
+        </div>
+    </div>
+
+    <!-- Botão fixo -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-stone-100 px-5 py-3 pb-6 z-50">
+        <div class="max-w-[430px] mx-auto flex items-center gap-3">
+            <div class="flex-1">
+                <p class="text-[10px] text-stone-500">Total à pagar</p>
+                <p id="fp-total-btn" class="text-lg font-bold text-marca-900">R$ 449,70</p>
+            </div>
+            <button onclick="finalizar_pedido_confirmar()" id="fp-btn-confirmar" class="flex-1 bg-marca-900 text-white font-bold text-sm py-3.5 rounded-xl active:scale-95 transition-all hover:bg-marca-800 shadow-lg shadow-marca-900/20 flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Confirmar Pedido
+            </button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var estado = { pagamento: 'cartao', termos: false };
+
+            function mascaraCartao(input) {
+                var v = input.value.replace(/\D/g, '').substring(0, 16);
+                var formatted = v.replace(/(\d{4})(?=\d)/g, '$1 ');
+                input.value = formatted;
+                finalizar_pedido_validarCampo(input);
+            }
+
+            function mascaraValidade(input) {
+                var v = input.value.replace(/\D/g, '').substring(0, 4);
+                if (v.length >= 2) { v = v.substring(0, 2) + '/' + v.substring(2); }
+                input.value = v;
+                finalizar_pedido_validarCampo(input);
+            }
+
+            function mascaraCVV(input) {
+                input.value = input.value.replace(/\D/g, '').substring(0, 4);
+                finalizar_pedido_validarCampo(input);
+            }
+
+            function mostrarErro(inputId, mensagem) {
+                var input = document.getElementById(inputId);
+                var erro = input.parentElement.querySelector('.fp-erro') || input.closest('div').querySelector('.fp-erro');
+                if (erro) {
+                    erro.textContent = mensagem;
+                    erro.classList.remove('hidden');
+                }
+                input.classList.add('border-red-400', 'bg-red-50/30');
+                input.classList.remove('border-stone-200');
+            }
+
+            function limparErro(inputId) {
+                var input = document.getElementById(inputId);
+                var container = input.closest('div');
+                var erros = container.querySelectorAll('.fp-erro');
+                erros.forEach(function(e) { e.classList.add('hidden'); });
+                input.classList.remove('border-red-400', 'bg-red-50/30');
+                input.classList.add('border-stone-200');
+            }
+
+            function validarCartao() {
+                var erros = 0;
+                var num = document.getElementById('fp-numero-cartao').value.replace(/\s/g, '');
+                if (num.length < 16) { mostrarErro('fp-numero-cartao', 'Informe os 16 dígitos do cartão'); erros++; } else { limparErro('fp-numero-cartao'); }
+                var nome = document.getElementById('fp-nome-cartao').value.trim();
+                if (nome.length < 3) { mostrarErro('fp-nome-cartao', 'Informe o nome do titular'); erros++; } else { limparErro('fp-nome-cartao'); }
+                var val = document.getElementById('fp-validade').value.replace('/', '');
+                if (val.length < 4) { mostrarErro('fp-validade', 'Informe a validade (MM/AA)'); erros++; } else { limparErro('fp-validade'); }
+                var cvv = document.getElementById('fp-cvv').value;
+                if (cvv.length < 3) { mostrarErro('fp-cvv', 'Informe o CVV'); erros++; } else { limparErro('fp-cvv'); }
+                return erros === 0;
+            }
+
+            window.finalizar_pedido_selecionarPagamento = function(metodo) {
+                estado.pagamento = metodo;
+                var botoes = document.querySelectorAll('.fp-pg-btn');
+                botoes.forEach(function(b) {
+                    b.classList.remove('border-marca-900', 'bg-marca-50');
+                    b.classList.add('border-stone-200', 'bg-white');
+                    b.querySelector('span').classList.remove('text-marca-900');
+                    b.querySelector('span').classList.add('text-stone-500');
+                    b.querySelector('.w-4').innerHTML = '';
+                    b.querySelector('svg').classList.remove('text-marca-800');
+                    b.querySelector('svg').classList.add('text-stone-400');
+                });
+
+                var btnAtivo = document.getElementById('fp-btn-' + metodo);
+                btnAtivo.classList.remove('border-stone-200', 'bg-white');
+                btnAtivo.classList.add('border-marca-900', 'bg-marca-50');
+                btnAtivo.querySelector('span').classList.remove('text-stone-500');
+                btnAtivo.querySelector('span').classList.add('text-marca-900');
+                btnAtivo.querySelector('.w-4').innerHTML = '<div class="w-2 h-2 rounded-full bg-marca-900"></div>';
+                btnAtivo.querySelector('svg').classList.remove('text-stone-400');
+                btnAtivo.querySelector('svg').classList.add('text-marca-800');
+
+                document.getElementById('fp-form-cartao').classList.add('hidden');
+                document.getElementById('fp-info-pix').classList.add('hidden');
+                document.getElementById('fp-info-boleto').classList.add('hidden');
+
+                if (metodo === 'cartao') {
+                    document.getElementById('fp-form-cartao').classList.remove('hidden');
+                } else if (metodo === 'pix') {
+                    document.getElementById('fp-info-pix').classList.remove('hidden');
+                } else if (metodo === 'boleto') {
+                    document.getElementById('fp-info-boleto').classList.remove('hidden');
+                }
+            };
+
+            window.finalizar_pedido_validarCampo = function(input) {
+                if (input.value.trim().length > 0) { limparErro(input.id); }
+            };
+
+            window.finalizar_pedido_mascaraCartao = mascaraCartao;
+            window.finalizar_pedido_mascaraValidade = mascaraValidade;
+            window.finalizar_pedido_mascaraCVV = mascaraCVV;
+
+            window.finalizar_pedido_editarEndereco = function() {
+                abrirModal(
+                    '<div class="space-y-3">' +
+                        '<div><label class="block text-xs font-semibold text-marca-900 mb-1">CEP</label><input type="text" value="01420-001" class="w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none" /></div>' +
+                        '<div><label class="block text-xs font-semibold text-marca-900 mb-1">Rua</label><input type="text" value="Rua das Palmeiras" class="w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none" /></div>' +
+                        '<div class="grid grid-cols-2 gap-3"><div><label class="block text-xs font-semibold text-marca-900 mb-1">Número</label><input type="text" value="240" class="w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none" /></div><div><label class="block text-xs font-semibold text-marca-900 mb-1">Complemento</label><input type="text" value="Apto 102" class="w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none" /></div></div>' +
+                        '<div><label class="block text-xs font-semibold text-marca-900 mb-1">Bairro</label><input type="text" value="Jardim América" class="w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none" /></div>' +
+                        '<div class="grid grid-cols-3 gap-3"><div><label class="block text-xs font-semibold text-marca-900 mb-1">Cidade</label><input type="text" value="São Paulo" class="w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none" /></div><div><label class="block text-xs font-semibold text-marca-900 mb-1">UF</label><input type="text" value="SP" class="w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none" /></div><div><label class="block text-xs font-semibold text-marca-900 mb-1">CEP</label><input type="text" value="01420-001" class="w-full px-3 py-2.5 text-sm border-2 border-stone-200 rounded-xl focus:border-marca-700 focus:outline-none" /></div></div>' +
+                    '</div>',
+                    'Editar Endereço'
+                );
+            };
+
+            window.finalizar_pedido_aplicarCupom = function() {
+                var cupom = document.getElementById('fp-cupom').value.trim().toUpperCase();
+                var msg = document.getElementById('fp-msg-cupom');
+                if (!cupom) { msg.textContent = 'Digite um código de cupom'; msg.className = 'text-xs mt-1.5 text-red-500'; return; }
+                if (cupom === 'BLUE10') {
+                    msg.textContent = 'Cupom BLUE10 aplicado! 10% de desconto.'; msg.className = 'text-xs mt-1.5 text-emerald-600 font-medium';
+                    toast('Cupom de 10% aplicado com sucesso!', 'ok');
+                } else if (cupom === 'FRETEGRATIS') {
+                    msg.textContent = 'Frete grátis já estava aplicado!'; msg.className = 'text-xs mt-1.5 text-blue-500 font-medium';
+                } else {
+                    msg.textContent = 'Cupom inválido ou expirado'; msg.className = 'text-xs mt-1.5 text-red-500 font-medium';
+                    toast('Cupom inválido', 'erro');
+                }
+            };
+
+            window.finalizar_pedido_toggleTermos = function() {
+                estado.termos = !estado.termos;
+                var btn = document.getElementById('fp-check-termos');
+                if (estado.termos) {
+                    btn.innerHTML = '<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>';
+                    btn.classList.add('bg-marca-900', 'border-marca-900');
+                    btn.classList.remove('border-stone-300');
+                } else {
+                    btn.innerHTML = '';
+                    btn.classList.remove('bg-marca-900', 'border-marca-900');
+                    btn.classList.add('border-stone-300');
+                }
+            };
+
+            window.finalizar_pedido_confirmar = function() {
+                if (!estado.termos) {
+                    toast('Você precisa aceitar os termos para continuar', 'erro');
+                    return;
+                }
+                if (estado.pagamento === 'cartao' && !validarCartao()) {
+                    toast('Verifique os dados do cartão', 'erro');
+                    return;
+                }
+
+                var btn = document.getElementById('fp-btn-confirmar');
+                btn.disabled = true;
+                btn.innerHTML = '<svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processando...';
+                btn.classList.add('opacity-70');
+
+                setTimeout(function() {
+                    toast('Pedido confirmado com sucesso!', 'ok');
+                    btn.disabled = false;
+                    btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Confirmar Pedido';
+                    btn.classList.remove('opacity-70');
+
+                    setTimeout(function() {
+                        mostrarTela('confirmacao-e-acompanhamento');
+                    }, 800);
+                }, 2000);
+            };
+
+            document.getElementById('fp-numero-cartao').addEventListener('focus', function() { limparErro('fp-numero-cartao'); });
+            document.getElementById('fp-nome-cartao').addEventListener('focus', function() { limparErro('fp-nome-cartao'); });
+            document.getElementById('fp-validade').addEventListener('focus', function() { limparErro('fp-validade'); });
+            document.getElementById('fp-cvv').addEventListener('focus', function() { limparErro('fp-cvv'); });
+        })();
+    </script>
+</section>
+
     <!-- TELAS -->
         </main>
 
